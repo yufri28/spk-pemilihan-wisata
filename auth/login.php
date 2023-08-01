@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if(isset($_SESSION['login']) && $_SESSION['login'] == true && $_SESSION['level'] == "pelamar"){
+if(isset($_SESSION['login']) && $_SESSION['login'] == true && $_SESSION['level'] == 1){
     header("Location: ../user/index.php");
 }else if(isset($_SESSION['login']) && $_SESSION['login'] == true && $_SESSION['level'] == 0) {
     header("Location: ../admin/index.php");
@@ -11,43 +11,38 @@ require_once '../config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
-    $cekPelamar = $koneksi->query("SELECT * FROM login_pelamar WHERE username='$username'");
-    $cekAdmin = $koneksi->query("SELECT * FROM admin WHERE username='$username'");
-    $selectPeriode = $koneksi->query("SELECT * FROM `periode` ORDER BY id_periode DESC LIMIT 1;");
-    if(mysqli_num_rows($cekPelamar) > 0){
-        $fetch = mysqli_fetch_assoc($cekPelamar);
-        $fetchPeriode = mysqli_fetch_assoc($selectPeriode);
-        $password_hash = password_verify($password, $fetch['password']);
-        if ($cekPelamar && $password_hash) {
+    $cekLogin = $koneksi->query("SELECT * FROM login_user WHERE username='$username'");
+    if(mysqli_num_rows($cekLogin) > 0){
+        $fetchLogin = mysqli_fetch_assoc($cekLogin);
+        if($fetchLogin['level'] == 1){
+            $password_hash = password_verify($password, $fetchLogin['password']);
+            if ($password_hash) {
+                    $_SESSION['login'] = true;
+                    $_SESSION['username'] = $username;
+                    $_SESSION['id_user'] = $fetchLogin['id_login']; 
+                    $_SESSION['level'] = $fetchLogin['level'];
+                    // Jika role nya admin, redirect ke halaman index.php
+                    header("Location: ../user/index.php");
+                    exit();
+            }else {
+                $_SESSION['error'] = 'Login Gagal';
+            }
+        }else if($fetchLogin['level'] == 0){
+            $password_hash = password_verify($password, $fetchLogin['password']);
+            if ($password_hash) {
                 $_SESSION['login'] = true;
                 $_SESSION['username'] = $username;
-                $_SESSION['jenjang'] = $fetch['jenjang']; 
-                $_SESSION['id_user'] = $fetch['id_login']; 
-                $_SESSION['id_periode'] = $fetchPeriode['id_periode'];
+                $_SESSION['id_user'] = $fetchLogin['id_login']; 
+                $_SESSION['level'] = $fetchLogin['level'];
                 // Jika role nya admin, redirect ke halaman index.php
-                header("Location: ../user/index.php");
+                header("Location: ../admin/index.php");
                 exit();
-        }else {
-            $_SESSION['error'] = 'Login Gagal';
+            }else {
+                $_SESSION['error'] = 'Login Gagal';
+            }
         }
     } 
-    if(mysqli_num_rows($cekAdmin) > 0){
-        $fetch = mysqli_fetch_assoc($cekAdmin);
-        $password_hash = password_verify($password, $fetch['password']);
-        if ($cekAdmin && $password_hash) {
-            $_SESSION['login'] = true;
-            $_SESSION['username'] = $username;
-            $_SESSION['level'] = $fetch['level']; 
-            $_SESSION['id_rayon'] = $fetch['f_id_rayon'];
-            $_SESSION['id_user'] = $fetch['id_admin']; 
-            // Jika role nya admin, redirect ke halaman index.php
-            header("Location: ../admin/index.php");
-            exit();
-        }else {
-            $_SESSION['error'] = 'Login Gagal';
-        }
-    }
-    if(!mysqli_num_rows($cekPelamar) > 0 && !mysqli_num_rows($cekAdmin) > 0) {
+    else{
         $_SESSION['error'] = 'Login Gagal';
     }
 }

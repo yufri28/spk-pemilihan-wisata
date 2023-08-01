@@ -63,14 +63,15 @@ require_once './config.php';
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link fw-bolder active" aria-current="page" href="./home.php">Beranda</a>
+                            <a class="nav-link fw-bolder" aria-current="page" href="./home.php">Beranda</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fw-bolder" aria-current="page" href="./tempat-wisata.php">Tempat
                                 Wisata</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-bolder" aria-current="page" href="./rekomendasi.php">Rekomendasi</a>
+                            <a class="nav-link fw-bolder active" aria-current="page"
+                                href="./rekomendasi.php">Rekomendasi</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -106,9 +107,9 @@ require_once './config.php';
                     </form>
                 </div>
                 <h4 class="" style="margin-top:100px;">Daftar Wisata</h4>
-                <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
-                    <div class="col-lg-4 mt-1">
-                        <div class="card">
+                <div class="list-wisata d-flex mt-2 col-lg-12">
+                    <div class="col-lg-4">
+                        <div class="card" style="width: 18rem;">
                             <img src="./assets/images/gereja.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>
@@ -117,8 +118,8 @@ require_once './config.php';
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 mt-1">
-                        <div class="card">
+                    <div class="col-lg-4">
+                        <div class="card" style="width: 18rem;">
                             <img src="./assets/images/gereja.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>
@@ -127,8 +128,8 @@ require_once './config.php';
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 mt-1">
-                        <div class="card">
+                    <div class="col-lg-4">
+                        <div class="card" style="width: 18rem;">
                             <img src="./assets/images/gereja.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>

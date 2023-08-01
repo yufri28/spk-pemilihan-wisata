@@ -63,10 +63,10 @@ require_once './config.php';
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link fw-bolder active" aria-current="page" href="./home.php">Beranda</a>
+                            <a class="nav-link fw-bolder" aria-current="page" href="./home.php">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-bolder" aria-current="page" href="./tempat-wisata.php">Tempat
+                            <a class="nav-link fw-bolder active" aria-current="page" href="./tempat-wisata.php">Tempat
                                 Wisata</a>
                         </li>
                         <li class="nav-item">
@@ -87,28 +87,10 @@ require_once './config.php';
         <!-- Jumbotron -->
         <div class="text-center text-lg-start">
             <div class="container col-lg-8" style="margin-top: 10%;">
-                <div class="row gx-lg-10 text-center">
-                    <div class="title">
-                        <h3>SISTEM PENDUKUNG KEPUTUSAN REKOMENDASI TEMPAT WISATA DI KABUPATEN TIMOR TENGAH SELATAN</h3>
-                    </div>
-                </div>
-                <div class="search-box d-flex justify-content-center mt-5 col-lg-12">
-                    <form class="col-lg-6 d-flex" role="search" action="" method="get">
-                        <input name="keyword" class="form-control bg-light ps-5 py-2" style="border-radius: 3em;"
-                            type="search" placeholder="Cari Wisata" aria-label="Search">
-                        <button style="position: absolute; border-top-left-radius: 3em; border-bottom-left-radius: 3em;"
-                            class="btn py-2 border border-0" type="submit"><svg xmlns="http://www.w3.org/2000/svg"
-                                width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                            </svg>
-                        </button>
-                    </form>
-                </div>
                 <h4 class="" style="margin-top:100px;">Daftar Wisata</h4>
-                <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
-                    <div class="col-lg-4 mt-1">
-                        <div class="card">
+                <div class="list-wisata d-flex mt-2 col-lg-12">
+                    <div class="col-lg-4">
+                        <div class="card" style="width: 18rem;">
                             <img src="./assets/images/gereja.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>
@@ -117,8 +99,8 @@ require_once './config.php';
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 mt-1">
-                        <div class="card">
+                    <div class="col-lg-4">
+                        <div class="card" style="width: 18rem;">
                             <img src="./assets/images/gereja.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>
@@ -127,8 +109,8 @@ require_once './config.php';
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 mt-1">
-                        <div class="card">
+                    <div class="col-lg-4">
+                        <div class="card" style="width: 18rem;">
                             <img src="./assets/images/gereja.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>

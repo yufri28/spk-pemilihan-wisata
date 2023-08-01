@@ -5,14 +5,11 @@ global $conn;
 if(!isset($_SESSION['login']) && $_SESSION['login'] != true){
     header("Location: ../index.php");
 }
-else if($_SESSION['level'] != 1){
+else if($_SESSION['level'] != 0){
     header("Location: ../404.php");
     exit;
 }
-
-$id_user = $_SESSION['id_user'];
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,11 +28,10 @@ $id_user = $_SESSION['id_user'];
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="../assets/DataTables/datatables.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
     #mapid,
     .teks {
-        height: 70vh;
+        height: 60vh;
     }
     </style>
 </head>
@@ -52,17 +48,19 @@ $id_user = $_SESSION['id_user'];
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="font-family: 'Manrope', sans-serif">
-                <div class="navbar-nav ms-auto me-auto mt-3 mb-3">
-                    <a class="nav-link <?=$_SESSION['menu'] == 'beranda-user' ? 'active':'';?>"
+                <div class="navbar-nav ms-auto me-auto mt-2 mb-2">
+                    <a class="nav-link <?=$_SESSION['menu'] == 'beranda-admin' ? 'active':'';?>"
                         href="index.php">Beranda</a>
+                    <a class="nav-link <?=$_SESSION['menu'] == 'alternatif' ? 'active':'';?>"
+                        href="alternatif.php">Alternatif</a>
                     <a class="nav-link <?=$_SESSION['menu'] == 'kriteria' ? 'active':'';?>"
                         href="kriteria.php">Kriteria</a>
-                    <a class="nav-link <?=$_SESSION['menu'] == 'jenis-kriteria' ? 'active':'';?>"
-                        href="jenis_kriteria.php">Jenis Kriteria</a>
-                    <a class="nav-link <?=$_SESSION['menu'] == 'penilaian' ? 'active':'';?>" href="kost.php">Tempat
-                        Wisata</a>
-                    <a class="nav-link <?=$_SESSION['menu'] == 'hasil' ? 'active':'';?>" href="hasil.php">Hasil</a>
-                    <a class="nav-link" href="../auth/logout.php">Logout</a>
+                    <a class="nav-link <?=$_SESSION['menu'] == 'sub-kriteria' ? 'active':'';?>"
+                        href="sub_kriteria.php">Sub
+                        Kriteria</a>
+                    <a class="nav-link <?=$_SESSION['menu'] == 'users' ? 'active':'';?>" href="users.php">User</a>
+                    <a class="nav-link <?=$_SESSION['menu'] == 'hasil' ? 'active':'';?>"
+                        href="../auth/logout.php">Logout</a>
                 </div>
             </div>
         </div>
