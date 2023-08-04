@@ -311,6 +311,7 @@ Swal.fire({
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
+                                        <th scope="col">Gambar</th>
                                         <th scope="col">Nama Alternatif</th>
                                         <th scope="col">Latitude</th>
                                         <th scope="col">Longitude</th>
@@ -327,6 +328,13 @@ Swal.fire({
                                     <?php foreach ($dataAlternatif as $i => $alternatif):?>
                                     <tr>
                                         <th scope="row"><?=$i+1;?></th>
+                                        <td><a href="../user/gambar/<?= $alternatif['gambar'] == '-'? 'no-img.png': $alternatif['gambar'];?>"
+                                                data-lightbox="image-1"
+                                                data-title="<?= $alternatif['nama_alternatif']; ?>"><img
+                                                    style="width:100px; height:100px;"
+                                                    src="../user/gambar/<?= $alternatif['gambar'] == '-'? 'no-img.png': $alternatif['gambar']; ?>"
+                                                    alt=""></a>
+                                        </td>
                                         <td><?=$alternatif['nama_alternatif'];?></td>
                                         <td><?=$alternatif['latitude'];?></td>
                                         <td><?=$alternatif['longitude'];?></td>

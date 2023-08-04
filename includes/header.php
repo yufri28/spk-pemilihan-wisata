@@ -19,7 +19,7 @@ $id_user = $_SESSION['id_user'];
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SPK Pemilihan Kost</title>
+    <title>SPK Pemilihan Wisata</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,6 +38,7 @@ $id_user = $_SESSION['id_user'];
         height: 70vh;
     }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 </head>
 
 <body>
@@ -57,9 +58,10 @@ $id_user = $_SESSION['id_user'];
                         href="index.php">Beranda</a>
                     <a class="nav-link <?=$_SESSION['menu'] == 'kriteria' ? 'active':'';?>"
                         href="kriteria.php">Kriteria</a>
-                    <a class="nav-link <?=$_SESSION['menu'] == 'jenis-kriteria' ? 'active':'';?>"
-                        href="jenis_kriteria.php">Jenis Kriteria</a>
-                    <a class="nav-link <?=$_SESSION['menu'] == 'penilaian' ? 'active':'';?>" href="kost.php">Tempat
+                    <!-- <a class="nav-link <?=$_SESSION['menu'] == 'jenis-kriteria' ? 'active':'';?>"
+                        href="jenis_kriteria.php">Jenis Kriteria</a> -->
+                    <a class="nav-link <?=$_SESSION['menu'] == 'penilaian' ? 'active':'';?>"
+                        href="tempat_wisata.php">Tempat
                         Wisata</a>
                     <a class="nav-link <?=$_SESSION['menu'] == 'hasil' ? 'active':'';?>" href="hasil.php">Hasil</a>
                     <a class="nav-link" href="../auth/logout.php">Logout</a>

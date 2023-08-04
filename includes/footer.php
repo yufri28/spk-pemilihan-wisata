@@ -11,6 +11,7 @@
 </script>
 <script src="../assets/DataTables/jquery.js"></script>
 <script src="../assets/DataTables/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 <!-- jquery datatables -->
 <script>
 $(document).ready(function() {

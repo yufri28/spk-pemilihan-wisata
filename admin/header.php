@@ -34,6 +34,7 @@ else if($_SESSION['level'] != 0){
         height: 60vh;
     }
     </style>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 </head>
 
 <body>

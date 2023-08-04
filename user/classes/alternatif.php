@@ -14,6 +14,27 @@
         {
             return $this->db->query("SELECT * FROM alternatif");
         }
+        public function alternatif_kriteria()
+        {
+            return $this->db->query("SELECT 
+            a.nama_alternatif, 
+            a.id_alternatif,
+            a.latitude,
+            a.longitude,
+            a.alamat,
+            a.gambar,
+            MAX(CASE WHEN k.id_kriteria = 'C1' THEN sk.spesifikasi END) AS namaC1,
+            MAX(CASE WHEN k.id_kriteria = 'C2' THEN sk.spesifikasi END) AS namaC2,
+            MAX(CASE WHEN k.id_kriteria = 'C3' THEN sk.spesifikasi END) AS namaC3,
+            MAX(CASE WHEN k.id_kriteria = 'C4' THEN sk.spesifikasi END) AS namaC4,
+            MAX(CASE WHEN k.id_kriteria = 'C5' THEN sk.spesifikasi END) AS namaC5
+            FROM alternatif a
+            JOIN kecocokan_alt_kriteria kak ON a.id_alternatif = kak.f_id_alternatif
+            JOIN sub_kriteria sk ON kak.f_id_sub_kriteria = sk.id_sub_kriteria
+            JOIN kriteria k ON kak.f_id_kriteria = k.id_kriteria
+            GROUP BY a.nama_alternatif, a.id_alternatif ORDER BY a.id_alternatif ASC;            
+            ");
+        }
 
         public function tambahAlternatif($dataAlternatif)
         {
