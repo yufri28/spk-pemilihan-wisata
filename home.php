@@ -75,7 +75,7 @@ else{
 
     <section class="">
         <!-- Section: Design Block -->
-        <nav class="navbar fixed-top navbar-transparent navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar fixed-top navbar-transparent navbar-expand-lg bg-body-tertiary py-3 px-5">
             <div class="container-fluid">
                 <a class="navbar-brand fw-bolder" href="#">SPK Wisata</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -92,9 +92,9 @@ else{
                             <a class="nav-link fw-bolder" aria-current="page" href="./tempat-wisata.php">Tempat
                                 Wisata</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link fw-bolder" aria-current="page" href="./rekomendasi.php">Rekomendasi</a>
-                        </li>
+                        </li> -->
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">

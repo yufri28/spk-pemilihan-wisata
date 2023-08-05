@@ -79,9 +79,9 @@ $tempat_wisata = $koneksi->query("SELECT * FROM alternatif ORDER BY rating DESC"
                             <a class="nav-link fw-bolder active" aria-current="page" href="./tempat-wisata.php">Tempat
                                 Wisata</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link fw-bolder" aria-current="page" href="./rekomendasi.php">Rekomendasi</a>
-                        </li>
+                        </li> -->
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">

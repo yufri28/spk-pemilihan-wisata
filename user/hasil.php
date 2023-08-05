@@ -3,13 +3,24 @@ session_start();
 unset($_SESSION['menu']);
 $_SESSION['menu'] = 'hasil';
 require_once './../includes/header.php';
+require_once './classes/kriteria_v1.php';
 $id_user = $_SESSION['id_user'];
 
 $selectBobot = $koneksi->query("SELECT * FROM bobot_kriteria WHERE f_id_user='$id_user'");
+$data_Kriteria = $Kriteria->getKriteria($id_user);
+$id_bobot = mysqli_fetch_assoc($data_Kriteria);
+
 
 if(mysqli_num_rows($selectBobot) <= 0){
      $_SESSION['error-bobot'] = 'Harap mengisi data bobot kriteria terlebih dahulu!';
 }
+
+if (mysqli_num_rows($data_Kriteria) <= 0):
+echo "<script>
+window.location.href='./kriteria_v1.php'
+</script>";
+endif;
+
 
 
 $jenisKriteriaC1 = mysqli_fetch_assoc($koneksi->query("SELECT jenis FROM jenis_kriteria WHERE f_id_kriteria='C1' AND f_id_user=$id_user"));
