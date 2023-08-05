@@ -203,8 +203,8 @@ Swal.fire({
             <div class="col-xxl-3 mb-xxl-3 mt-5">
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="card">
-                        <div class="card-header bg-primary">
-                            <h5 class="text-center text-white pt-2 col-12 btn-outline-primary">
+                        <div class="card-header">
+                            <h5 class="text-center pt-2 col-12">
                                 Tambah Data
                             </h5>
                         </div>
@@ -294,7 +294,7 @@ Swal.fire({
                                     id="gambar" required />
                             </div>
 
-                            <button type="submit" name="simpan" class="btn col-12 btn-outline-primary">
+                            <button type="submit" name="simpan" class="btn col-12 btn-outline-secondary">
                                 Simpan
                             </button>
                         </div>
@@ -303,7 +303,7 @@ Swal.fire({
             </div>
             <div class="col-xxl-9 mt-5 ms-xxl-5">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">DAFTAR ALTERNATIF</div>
+                    <div class="card-header">DAFTAR ALTERNATIF</div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered nowrap" style="width:100%"
@@ -351,7 +351,8 @@ Swal.fire({
                                                 Edit
                                             </button>
                                             <a href="https://www.google.com/maps/dir/?api=1&destination=<?=$alternatif['latitude'];?>,<?=$alternatif['longitude'];?>"
-                                                title="Lokasi di MAPS" class="btn btn-sm btn-success">ke Maps</a>
+                                                title="Lokasi di MAPS" target="_blank" class="btn btn-sm btn-success">ke
+                                                Maps</a>
                                             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#hapus<?=$alternatif['id_alternatif'];?>">
                                                 Hapus

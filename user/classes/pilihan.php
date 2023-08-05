@@ -1,5 +1,5 @@
 <?php 
-$kriteria = ["Fasilitas", "Jarak", "Biaya", "Luas Kamar", "Keamanan"];
+$kriteria = ["Biaya masuk", "Fasilitas", "Jarak dari pusat kota", "Jumlah pengunjung", "Kualitas jalan"];
 if(isset($_POST['prioritas_1'])){
     echo "<option value=''>-- Pilih prioritas 2 --</option>";
     $selectedOptions = $_POST['prioritas_1']; 

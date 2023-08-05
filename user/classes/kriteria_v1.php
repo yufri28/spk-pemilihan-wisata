@@ -22,19 +22,19 @@ class Kriteria{
         $C5 = 0;
         foreach ($dataPenilaian as $key => $value) {
            switch ($key) {
-            case "Fasilitas":
+            case "Biaya masuk":
                 $C1 = $value;
                 break;
-            case "Jarak":
+            case "Fasilitas":
                 $C2 = $value;
                 break;
-            case "Biaya":
+            case "Jarak dari pusat kota":
                 $C3 = $value;
                 break;
-            case "Luas Kamar":
+            case "Jumlah pengunjung":
                 $C4 = $value;
                 break;
-            case "Keamanan":
+            case "Kualitas jalan":
                 $C5 = $value;
                 break;
            }
@@ -64,23 +64,23 @@ class Kriteria{
         $C4 = 0;
         $C5 = 0;
         foreach ($dataPenilaian as $key => $value) {
-           switch ($key) {
-            case "Fasilitas":
-                $C1 = $value;
-                break;
-            case "Jarak":
-                $C2 = $value;
-                break;
-            case "Biaya":
-                $C3 = $value;
-                break;
-            case "Luas Kamar":
-                $C4 = $value;
-                break;
-            case "Keamanan":
-                $C5 = $value;
-                break;
-           }
+            switch ($key) {
+                case "Biaya masuk":
+                    $C1 = $value;
+                    break;
+                case "Fasilitas":
+                    $C2 = $value;
+                    break;
+                case "Jarak dari pusat kota":
+                    $C3 = $value;
+                    break;
+                case "Jumlah pengunjung":
+                    $C4 = $value;
+                    break;
+                case "Kualitas jalan":
+                    $C5 = $value;
+                    break;
+            }
         }
         $update = $this->db->query("UPDATE bobot_kriteria SET C1=$C1,C2=$C2,C3=$C3,C4=$C4,C5=$C5 WHERE id_bobot='$id_bobot'");
         if($update){

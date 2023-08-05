@@ -16,7 +16,7 @@ else if($_SESSION['level'] != 0){
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SPK Pemilihan Kost</title>
+    <title>SPK Pemilihan Wisata</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,11 +34,11 @@ else if($_SESSION['level'] != 0){
         height: 60vh;
     }
     </style>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top shadow-lg fixed-top" style="background-color: #3b6dd8"
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg fixed-top" style="background-color: #0B666A"
         data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">

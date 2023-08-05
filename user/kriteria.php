@@ -73,7 +73,7 @@ if(mysqli_num_rows($cekJenisKriteria) < 1){
 <script>
 Swal.fire({
     title: 'Pesan',
-    text: 'Berikan bobot tertinggi pada kriteria yang menjadi prioritas. Contoh: jika anda ingin mencari kost dengan Fasilitas terbaik, maka anda dapat memberikan bobot paling tinggi pada kriteria tersebut, dan seterusnya. Total bobot yang harus anda masukan adalah 100. Semakin tinggi bobot suatu kriteria, maka prioritasnya semakin tinggi.',
+    text: 'Berikan bobot tertinggi pada kriteria yang menjadi prioritas. Contoh: jika anda ingin mencari wisata dengan Fasilitas terbaik, maka anda dapat memberikan bobot paling tinggi pada kriteria tersebut, dan seterusnya. Total bobot yang harus anda masukan adalah 100. Semakin tinggi bobot suatu kriteria, maka prioritasnya semakin tinggi.',
     icon: 'warning',
     confirmButtonText: 'Paham'
 });

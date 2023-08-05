@@ -70,8 +70,8 @@ Swal.fire({
         <div class="d-xxl-flex">
             <div class="col-xxl-3 mb-xxl-3 mt-5">
                 <div class="card">
-                    <div class="card-header bg-primary">
-                        <h5 class="text-center text-white pt-2 col-12 btn-outline-primary">
+                    <div class="card-header">
+                        <h5 class="text-center pt-2 col-12">
                             Tambah Data Sub Kriteria
                         </h5>
                     </div>
@@ -112,7 +112,7 @@ Swal.fire({
             </div>
             <div class="col-xxl-9 ms-xxl-5 mt-5">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">DAFTAR SUB KRITERIA</div>
+                    <div class="card-header">DAFTAR SUB KRITERIA</div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered nowrap" style="width:100%" id="table">

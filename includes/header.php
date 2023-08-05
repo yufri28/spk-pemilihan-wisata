@@ -42,7 +42,7 @@ $id_user = $_SESSION['id_user'];
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top shadow-lg fixed-top" style="background-color: #3b6dd8"
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg fixed-top" style="background-color: #0B666A"
         data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -57,7 +57,7 @@ $id_user = $_SESSION['id_user'];
                     <a class="nav-link <?=$_SESSION['menu'] == 'beranda-user' ? 'active':'';?>"
                         href="index.php">Beranda</a>
                     <a class="nav-link <?=$_SESSION['menu'] == 'kriteria' ? 'active':'';?>"
-                        href="kriteria.php">Kriteria</a>
+                        href="kriteria_v1.php">Kriteria</a>
                     <!-- <a class="nav-link <?=$_SESSION['menu'] == 'jenis-kriteria' ? 'active':'';?>"
                         href="jenis_kriteria.php">Jenis Kriteria</a> -->
                     <a class="nav-link <?=$_SESSION['menu'] == 'penilaian' ? 'active':'';?>"

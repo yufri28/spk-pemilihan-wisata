@@ -37,8 +37,8 @@ Swal.fire({
         <div class="d-xxl-flex">
             <div class="col-xxl-12 mt-5 ms-xxl-1">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        DAFTAR KOST
+                    <div class="card-header">
+                        DAFTAR WISATA
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -48,7 +48,7 @@ Swal.fire({
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Gambar</th>
-                                        <th scope="col">Nama Kost</th>
+                                        <th scope="col">Nama Wisata</th>
                                         <th scope="col">Biaya Masuk</th>
                                         <th scope="col">Fasilitas</th>
                                         <th scope="col">Jarak Pusat Kota</th>

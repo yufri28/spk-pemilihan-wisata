@@ -6,6 +6,19 @@ if(isset($_SESSION['login']) && $_SESSION['login'] == true && $_SESSION['role'] 
     header("Location: ./admin/index.php");
 }
 require_once './config.php';
+$keyword = '';
+if (isset($_POST['k'])) {
+    $keyword = $_POST['k'];
+    $query = $koneksi->prepare("SELECT * FROM alternatif WHERE nama_alternatif LIKE ?");
+    $searchKeyword = '%' . $keyword . '%';
+    $query->bind_param('s', $searchKeyword);
+    $query->execute();
+    $tempat_wisata = $query->get_result();
+}
+else{
+    $tempat_wisata = $koneksi->query("SELECT * FROM alternatif ORDER BY rating DESC");
+}
+
 
 ?>
 
@@ -35,6 +48,16 @@ require_once './config.php';
 
     .input-search {
         border-radius: 0.3rem;
+    }
+
+    .content {
+        display: none;
+    }
+
+    .noContent {
+        color: #61677A !important;
+        background-color: transparent !important;
+        pointer-events: none;
     }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -93,9 +116,9 @@ require_once './config.php';
                     </div>
                 </div>
                 <div class="search-box d-flex justify-content-center mt-5 col-lg-12">
-                    <form class="col-lg-6 d-flex" role="search" action="" method="get">
-                        <input name="keyword" class="form-control bg-light ps-5 py-2" style="border-radius: 3em;"
-                            type="search" placeholder="Cari Wisata" aria-label="Search">
+                    <form class="col-lg-6 d-flex" role="search" action="" method="post">
+                        <input name="k" class="form-control bg-light ps-5 py-2" style="border-radius: 3em;"
+                            type="search" value="<?=$keyword;?>" placeholder="Cari Wisata" aria-label="Search">
                         <button style="position: absolute; border-top-left-radius: 3em; border-bottom-left-radius: 3em;"
                             class="btn py-2 border border-0" type="submit"><svg xmlns="http://www.w3.org/2000/svg"
                                 width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -107,40 +130,31 @@ require_once './config.php';
                 </div>
                 <h4 class="" style="margin-top:100px;">Daftar Wisata</h4>
                 <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
-                    <div class="col-lg-4 mt-1">
+                    <?php foreach ($tempat_wisata as $key => $wisata):?>
+                    <div class="col-lg-4 mt-1 content">
                         <div class="card">
-                            <img src="./assets/images/gereja.jpg" class="card-img-top" alt="...">
+                            <img src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':$wisata['gambar'];?>"
+                                class="
+                                card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
+                                <h5 class="card-title"><?=$wisata['nama_alternatif'];?></h5>
+                                <?php for($i = 0; $i < $wisata['rating'];$i++): ?>
+                                <span class="card-text text-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                        height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                    </svg></span>
+                                <?php endfor;?>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 mt-1">
-                        <div class="card">
-                            <img src="./assets/images/gereja.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mt-1">
-                        <div class="card">
-                            <img src="./assets/images/gereja.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach;?>
                 </div>
+                <?php if(mysqli_num_rows($tempat_wisata) > 6):?>
                 <div class="button d-flex justify-content-center mt-3">
-                    <button class="btn btn-outline-secondary">Load More</button>
+                    <a class="btn btn-outline-secondary" id="loadMore">Load More</a>
                 </div>
+                <?php endif;?>
             </div>
         </div>
         <!-- Jumbotron -->
@@ -156,6 +170,20 @@ require_once './config.php';
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+    </script>
+    <script src="./assets/DataTables/jquery.js"></script>
+    <script>
+    // load more button
+    $(document).ready(function() {
+        $(".content").slice(0, 6).show();
+        $("#loadMore").on("click", function(e) {
+            e.preventDefault();
+            $(".content:hidden").slice(0, 6).slideDown();
+            if ($(".content:hidden").length == 0) {
+                $("#loadMore").text("No Content").addClass("noContent");
+            }
+        })
+    });
     </script>
 </body>
 

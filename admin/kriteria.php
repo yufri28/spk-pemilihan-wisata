@@ -61,7 +61,7 @@ Swal.fire({
             <div class="col-xxl-3 mb-xxl-3 mt-5">
                 <div class="card">
                     <div class="card-header bg-primary">
-                        <h5 class="text-center text-white pt-2 col-12 btn-outline-primary">
+                        <h5 class="text-center pt-2 col-12">
                             Tambah Data Kriteria
                         </h5>
                     </div>
@@ -87,7 +87,7 @@ Swal.fire({
             <?php endif;?>
             <div class="<?= mysqli_num_rows($data_Kriteria) < 5 ? "":"col-xxl-12 ms-xxl-2"; ?> mt-5">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">DAFTAR KRITERIA</div>
+                    <div class="card-header">DAFTAR KRITERIA</div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered nowrap" style="width:100%" id="table">
@@ -96,7 +96,7 @@ Swal.fire({
                                         <th scope="col">No</th>
                                         <th scope="col">Kode</th>
                                         <th scope="col">Nama</th>
-                                        <th scope="col">Aksi</th>
+                                        <!-- <th scope="col">Aksi</th> -->
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
@@ -106,16 +106,16 @@ Swal.fire({
                                         <th scope="row"><?=$key+1;?></th>
                                         <th scope="row"><?=$kriteria['id_kriteria'];?></th>
                                         <td><?=$kriteria['nama_kriteria'];?></td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                        <!-- <td> -->
+                                        <!-- <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#edit<?=$kriteria['id_kriteria'];?>">
                                                 Edit
-                                            </button>
-                                            <!-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                            </button> -->
+                                        <!-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#hapus<?=$kriteria['id_kriteria'];?>">
                                                 Hapus
                                             </button> -->
-                                        </td>
+                                        <!-- </td> -->
                                     </tr>
                                     <?php endforeach;?>
                                 </tbody>
