@@ -12,7 +12,7 @@ if(isset($_POST['simpan'])){
         $lokasiSementara = $_FILES['gambar']['tmp_name'];
         
         // Tentukan lokasi tujuan penyimpanan
-        $targetDir = '../user/gambar/';
+        $targetDir = '../user_area/gambar/';
         $targetFilePath = $targetDir . $namaFile;
 
         // Cek apakah nama file sudah ada dalam direktori target
@@ -41,7 +41,7 @@ if(isset($_POST['simpan'])){
             $fasilitas = htmlspecialchars($_POST['fasilitas']);
             $jarak = htmlspecialchars($_POST['jarak']);
             $jumlah_pengunjung = htmlspecialchars($_POST['jumlah-pengunjung']);
-            $kualitas_jalan = htmlspecialchars($_POST['kualitas-jalan']);
+           
 
             $dataAlt = [
                 'nama_alternatif' => $namaAlternatif,
@@ -55,8 +55,8 @@ if(isset($_POST['simpan'])){
                 'C1' => $biaya,
                 'C2' => $fasilitas,
                 'C3' => $jarak,
-                'C4' => $jumlah_pengunjung,
-                'C5' => $kualitas_jalan
+                'C4' => $jumlah_pengunjung
+        
             ];
 
             $getDataAlternatif->tambahAlternatif($dataAlt, $dataSubKriteria);
@@ -74,7 +74,7 @@ if(isset($_POST['edit'])){
         $lokasiSementara = $_FILES['gambar']['tmp_name'];
         
         // Tentukan lokasi tujuan penyimpanan
-        $targetDir = '../user/gambar/';
+        $targetDir = '../user_area/gambar/';
         $targetFilePath = $targetDir . $namaFile;
 
         // Cek apakah nama file sudah ada dalam direktori target
@@ -111,7 +111,7 @@ if(isset($_POST['edit'])){
             $fasilitas = htmlspecialchars($_POST['fasilitas']);
             $jarak = htmlspecialchars($_POST['jarak']);
             $jumlah_pengunjung = htmlspecialchars($_POST['jumlah-pengunjung']);
-            $kualitas_jalan = htmlspecialchars($_POST['kualitas-jalan']);
+        
         
             $dataAlt = [
                 'id_alternatif' => $id_alternatif,
@@ -123,7 +123,7 @@ if(isset($_POST['edit'])){
                 'alamat' => $alamat       
             ];
 
-            $dataSubKriteria = [$biaya,$fasilitas,$jarak,$jumlah_pengunjung,$kualitas_jalan];
+            $dataSubKriteria = [$biaya,$fasilitas,$jarak,$jumlah_pengunjung];
             $getDataAlternatif->editAlternatif($dataAlt,$dataSubKriteria);
         } else {
             return $_SESSION['error'] = 'Tidak ada data yang dikirim!';
@@ -139,7 +139,7 @@ if(isset($_POST['edit'])){
         $fasilitas = htmlspecialchars($_POST['fasilitas']);
         $jarak = htmlspecialchars($_POST['jarak']);
         $jumlah_pengunjung = htmlspecialchars($_POST['jumlah-pengunjung']);
-        $kualitas_jalan = htmlspecialchars($_POST['kualitas-jalan']);
+       
     
         $dataAlt = [
             'id_alternatif' => $id_alternatif,
@@ -150,7 +150,7 @@ if(isset($_POST['edit'])){
             'gambar' => $_POST['gambar_lama'],
             'alamat' => $alamat       
         ];
-        $dataSubKriteria = [$biaya,$fasilitas,$jarak,$jumlah_pengunjung,$kualitas_jalan];
+        $dataSubKriteria = [$biaya,$fasilitas,$jarak,$jumlah_pengunjung];
         $getDataAlternatif->editAlternatif($dataAlt,$dataSubKriteria);
     }    
 }   
@@ -164,7 +164,6 @@ $getSubBiaya = $getDataAlternatif->getSubBiaya();
 $getSubFasilitas = $getDataAlternatif->getSubFasilitas();
 $getSubPusatKota = $getDataAlternatif->getSubPusatKota();
 $getSubJumlahPengunjung = $getDataAlternatif->getSubJumlahPengunjung();
-$getSubKualitasJalan = $getDataAlternatif->getSubKualitasJalan();
 ?>
 <?php if (isset($_SESSION['success'])): ?>
 <script>
@@ -278,17 +277,6 @@ Swal.fire({
                                 </select>
                             </div>
                             <div class="mb-3 mt-3">
-                                <label for="kualitas-jalan" class="form-label">Kualitas jalan</label>
-                                <select class="form-select" name="kualitas-jalan" required
-                                    aria-label="Default select example">
-                                    <option value="">-- Kualitas jalan --</option>
-                                    <?php foreach ($getSubKualitasJalan as $key => $kualitasJalan):?>
-                                    <option value="<?=$kualitasJalan['id_sub_kriteria'];?>">
-                                        <?=$kualitasJalan['spesifikasi'];?></option>
-                                    <?php endforeach;?>
-                                </select>
-                            </div>
-                            <div class="mb-3 mt-3">
                                 <label for="gambar" class="form-label">Gambar</label>
                                 <input type="file" accept=".jpg,.jpeg,.png" class="form-control" name="gambar"
                                     id="gambar" required />
@@ -320,7 +308,6 @@ Swal.fire({
                                         <th scope="col">Fasilitas</th>
                                         <th scope="col">Jarak dari pusat kota</th>
                                         <th scope="col">Jumlah pengunjung</th>
-                                        <th scope="col">Kualitas jalan</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
@@ -328,11 +315,11 @@ Swal.fire({
                                     <?php foreach ($dataAlternatif as $i => $alternatif):?>
                                     <tr>
                                         <th scope="row"><?=$i+1;?></th>
-                                        <td><a href="../user/gambar/<?= $alternatif['gambar'] == '-'? 'no-img.png': $alternatif['gambar'];?>"
+                                        <td><a href="../user_area/gambar/<?= $alternatif['gambar'] == '-'? 'no-img.png': $alternatif['gambar'];?>"
                                                 data-lightbox="image-1"
                                                 data-title="<?= $alternatif['nama_alternatif']; ?>"><img
                                                     style="width:100px; height:100px;"
-                                                    src="../user/gambar/<?= $alternatif['gambar'] == '-'? 'no-img.png': $alternatif['gambar']; ?>"
+                                                    src="../user_area/gambar/<?= $alternatif['gambar'] == '-'? 'no-img.png': $alternatif['gambar']; ?>"
                                                     alt=""></a>
                                         </td>
                                         <td><?=$alternatif['nama_alternatif'];?></td>
@@ -343,7 +330,6 @@ Swal.fire({
                                         <td><?=$alternatif['spesifikasi_C2'];?></td>
                                         <td><?=$alternatif['spesifikasi_C3'];?></td>
                                         <td><?=$alternatif['spesifikasi_C4'];?></td>
-                                        <td><?=$alternatif['spesifikasi_C5'];?></td>
                                         <td>
 
                                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
@@ -462,17 +448,6 @@ Swal.fire({
                             <?php endforeach;?>
                         </select>
                     </div>
-                    <div class="mb-3 mt-3">
-                        <label for="kualitas-jalan" class="form-label">Kualitas jalan</label>
-                        <select class="form-select" name="kualitas-jalan" required aria-label="Default select example">
-                            <option value="">-- Kualitas jalan --</option>
-                            <?php foreach ($getSubKualitasJalan as $key => $kualitasJalan):?>
-                            <option <?=$kualitasJalan['id_sub_kriteria'] == $alternatif['id_sub_C5'] ? 'selected':'';?>
-                                value="<?=$kualitasJalan['id_sub_kriteria'];?>">
-                                <?=$kualitasJalan['spesifikasi'];?></option>
-                            <?php endforeach;?>
-                        </select>
-                    </div>
                     <div class="card-body">
                         <div class="mb-3 mt-3">
                             <input type="hidden" name="gambar_lama" value="<?=$alternatif['gambar'];?>">
@@ -480,11 +455,11 @@ Swal.fire({
                             <input type="file" accept=".jpg,.jpeg,.png" class="form-control" name="gambar"
                                 id="gambar" />
                             <?php if($alternatif['gambar'] == '-'):?>
-                            <img class="mt-2" style="width: 150px; height:150px;" src="../user/gambar/gereja.jpg"
+                            <img class="mt-2" style="width: 150px; height:150px;" src="../user_area/gambar/gereja.jpg"
                                 alt="">
                             <?php else:?>
                             <img class="mt-2" style="width: 150px; height:150px;"
-                                src="../user/gambar/<?=$alternatif['gambar'];?>" alt="">
+                                src="../user_area/gambar/<?=$alternatif['gambar'];?>" alt="">
                             <?php endif;?>
                         </div>
                     </div>

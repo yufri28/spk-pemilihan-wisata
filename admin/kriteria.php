@@ -54,10 +54,10 @@ Swal.fire({
 <?php unset($_SESSION['error']); // Menghapus session setelah ditampilkan ?>
 <?php endif; ?>
 
-<div class="container mb-5 pt-5" style="font-family: 'Prompt', sans-serif">
+<div class="container pt-5" style="font-family: 'Prompt', sans-serif; margin-bottom:130px;">
     <div class="row">
         <div class="d-xxl-flex">
-            <?php if(mysqli_num_rows($data_Kriteria) < 5) :?>
+            <?php if(mysqli_num_rows($data_Kriteria) < 4) :?>
             <div class="col-xxl-3 mb-xxl-3 mt-5">
                 <div class="card">
                     <div class="card-header bg-primary">
@@ -85,7 +85,7 @@ Swal.fire({
                 </div>
             </div>
             <?php endif;?>
-            <div class="<?= mysqli_num_rows($data_Kriteria) < 5 ? "":"col-xxl-12 ms-xxl-2"; ?> mt-5">
+            <div class="<?= mysqli_num_rows($data_Kriteria) < 4 ? "":"col-xxl-12 ms-xxl-2 mb-5"; ?> mt-5">
                 <div class="card">
                     <div class="card-header">DAFTAR KRITERIA</div>
                     <div class="card-body">

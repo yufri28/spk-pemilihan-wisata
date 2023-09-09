@@ -59,7 +59,7 @@ else if($_SESSION['level'] != 0){
                     <a class="nav-link <?=$_SESSION['menu'] == 'sub-kriteria' ? 'active':'';?>"
                         href="sub_kriteria.php">Sub
                         Kriteria</a>
-                    <a class="nav-link <?=$_SESSION['menu'] == 'users' ? 'active':'';?>" href="users.php">User</a>
+                    <!-- <a class="nav-link <?=$_SESSION['menu'] == 'users' ? 'active':'';?>" href="users.php">User</a> -->
                     <a class="nav-link <?=$_SESSION['menu'] == 'hasil' ? 'active':'';?>"
                         href="../auth/logout.php">Logout</a>
                 </div>
