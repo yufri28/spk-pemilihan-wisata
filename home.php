@@ -1,9 +1,9 @@
 <?php 
 session_start();
-if(isset($_SESSION['login']) && $_SESSION['login'] == true && $_SESSION['role'] == 1){
-    header("Location: ./user/index.php");
-}else if(isset($_SESSION['login']) && $_SESSION['login'] == true && $_SESSION['role'] == 0) {
+if(isset($_SESSION['login']) && $_SESSION['login'] == true && $_SESSION['role'] == 0) {
     header("Location: ./admin/index.php");
+}else{
+    header("Location: ./user_area/index.php");
 }
 require_once './config.php';
 $keyword = '';
