@@ -174,7 +174,6 @@ include_once './hitung.php';
                                     <th scope="col">Fasilitas</th>
                                     <th scope="col">Jarak Pusat Kota</th>
                                     <th scope="col">Jumlah Pengunjung</th>
-                                    <th scope="col">Kualitas Jalan</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -193,7 +192,6 @@ include_once './hitung.php';
                                     <td><?= $value['namaC2']; ?></td>
                                     <td><?= $value['namaC3']; ?></td>
                                     <td><?= $value['namaC4']; ?></td>
-                                    <td><?= $value['namaC5']; ?></td>
                                     <td>
                                         <a href="https://www.google.com/maps/dir/?api=1&destination=<?=$value['latitude'];?>,<?=$value['longitude'];?>"
                                             title="Lokasi di MAPS" class="btn btn-sm btn-success">Lokasi</a>

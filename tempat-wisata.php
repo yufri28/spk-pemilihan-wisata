@@ -6,7 +6,9 @@ if(isset($_SESSION['login']) && $_SESSION['login'] == true && $_SESSION['role'] 
     header("Location: ./admin/index.php");
 }
 require_once './config.php';
-$tempat_wisata = $koneksi->query("SELECT * FROM alternatif ORDER BY rating DESC");
+$tempat_wisata_budaya = $koneksi->query("SELECT * FROM alternatif WHERE kategori='Budaya' ORDER BY rating DESC");
+$tempat_wisata_buatan = $koneksi->query("SELECT * FROM alternatif WHERE kategori='Buatan' ORDER BY rating DESC");
+$tempat_wisata_alam = $koneksi->query("SELECT * FROM alternatif WHERE kategori='Alam' ORDER BY rating DESC");
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +40,14 @@ $tempat_wisata = $koneksi->query("SELECT * FROM alternatif ORDER BY rating DESC"
     }
 
     .content {
+        display: none;
+    }
+
+    .content1 {
+        display: none;
+    }
+
+    .content2 {
         display: none;
     }
 
@@ -79,9 +89,9 @@ $tempat_wisata = $koneksi->query("SELECT * FROM alternatif ORDER BY rating DESC"
                             <a class="nav-link fw-bolder active" aria-current="page" href="./tempat-wisata.php">Tempat
                                 Wisata</a>
                         </li>
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link fw-bolder" aria-current="page" href="./rekomendasi.php">Rekomendasi</a>
-                        </li> -->
+                        </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -97,9 +107,36 @@ $tempat_wisata = $koneksi->query("SELECT * FROM alternatif ORDER BY rating DESC"
         <!-- Jumbotron -->
         <div class="text-center text-lg-start">
             <div class="container col-lg-8" style="margin-top: 10%;">
-                <h4 class="" style="margin-top:100px;">Daftar Wisata</h4>
+                <h5 class="" style="margin-top:100px;">Daftar Wisata Alam</h5>
                 <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
-                    <?php foreach ($tempat_wisata as $key => $wisata):?>
+                    <?php foreach ($tempat_wisata_alam as $key => $wisata):?>
+                    <div class="col-lg-4 mt-1 content2">
+                        <div class="card">
+                            <img src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':$wisata['gambar'];?>"
+                                class="
+                                card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><?=$wisata['nama_alternatif'];?></h5>
+                                <?php for($i = 0; $i < $wisata['rating'];$i++): ?>
+                                <span class="card-text text-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                        height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                    </svg></span>
+                                <?php endfor;?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach;?>
+                </div>
+                <?php if(mysqli_num_rows($tempat_wisata_alam) > 6):?>
+                <div class="button d-flex justify-content-center mt-3">
+                    <a class="btn btn-outline-secondary" id="loadMore2">Load More</a>
+                </div>
+                <?php endif;?>
+                <h5 class="" style="margin-top:100px;">Daftar Wisata Budaya</h5>
+                <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
+                    <?php foreach ($tempat_wisata_budaya as $key => $wisata):?>
                     <div class="col-lg-4 mt-1 content">
                         <div class="card">
                             <img src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':$wisata['gambar'];?>"
@@ -119,9 +156,36 @@ $tempat_wisata = $koneksi->query("SELECT * FROM alternatif ORDER BY rating DESC"
                     </div>
                     <?php endforeach;?>
                 </div>
-                <?php if(mysqli_num_rows($tempat_wisata) > 6):?>
+                <?php if(mysqli_num_rows($tempat_wisata_budaya) > 6):?>
                 <div class="button d-flex justify-content-center mt-3">
                     <a class="btn btn-outline-secondary" id="loadMore">Load More</a>
+                </div>
+                <?php endif;?>
+                <h5 class="" style="margin-top:100px;">Daftar Wisata Buatan</h5>
+                <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
+                    <?php foreach ($tempat_wisata_buatan as $key => $wisata):?>
+                    <div class="col-lg-4 mt-1 content1">
+                        <div class="card">
+                            <img src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':$wisata['gambar'];?>"
+                                class="
+                                card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><?=$wisata['nama_alternatif'];?></h5>
+                                <?php for($i = 0; $i < $wisata['rating'];$i++): ?>
+                                <span class="card-text text-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                        height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                    </svg></span>
+                                <?php endfor;?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach;?>
+                </div>
+                <?php if(mysqli_num_rows($tempat_wisata_buatan) > 6):?>
+                <div class="button d-flex justify-content-center mt-3">
+                    <a class="btn btn-outline-secondary" id="loadMore1">Load More</a>
                 </div>
                 <?php endif;?>
             </div>
@@ -150,6 +214,22 @@ $tempat_wisata = $koneksi->query("SELECT * FROM alternatif ORDER BY rating DESC"
             $(".content:hidden").slice(0, 6).slideDown();
             if ($(".content:hidden").length == 0) {
                 $("#loadMore").text("No Content").addClass("noContent");
+            }
+        })
+        $(".content1").slice(0, 6).show();
+        $("#loadMore1").on("click", function(e) {
+            e.preventDefault();
+            $(".content1:hidden").slice(0, 6).slideDown();
+            if ($(".content1:hidden").length == 0) {
+                $("#loadMore1").text("No Content").addClass("noContent");
+            }
+        })
+        $(".content2").slice(0, 6).show();
+        $("#loadMore2").on("click", function(e) {
+            e.preventDefault();
+            $(".content2:hidden").slice(0, 6).slideDown();
+            if ($(".content2:hidden").length == 0) {
+                $("#loadMore2").text("No Content").addClass("noContent");
             }
         })
     });

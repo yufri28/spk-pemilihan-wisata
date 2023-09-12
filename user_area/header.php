@@ -43,7 +43,21 @@ global $conn;
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="font-family: 'Manrope', sans-serif">
-                <div class="navbar-nav ms-auto me-5 mt-3 mb-3">
+                <div class="navbar-nav ms-auto me-5">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="./home.php">Beranda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="./tempat-wisata.php">Tempat
+                                Wisata</a>
+                        </li>
+                        <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="./rekomendasi.php">Rekomendasi</a>
+                            </li>
+                        </ul>
+                    </ul>
                     <a class="nav-link" href="../auth/login.php">Login</a>
                 </div>
             </div>

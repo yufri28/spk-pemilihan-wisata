@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Sep 2023 pada 08.57
+-- Waktu pembuatan: 12 Sep 2023 pada 09.59
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.1.6
 
@@ -34,24 +34,25 @@ CREATE TABLE `alternatif` (
   `gambar` varchar(255) NOT NULL,
   `latitude` varchar(255) NOT NULL,
   `longitude` varchar(255) NOT NULL,
-  `rating` int(1) NOT NULL
+  `rating` int(1) NOT NULL,
+  `kategori` enum('Budaya','Buatan','Alam') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `alternatif`
 --
 
-INSERT INTO `alternatif` (`id_alternatif`, `nama_alternatif`, `alamat`, `gambar`, `latitude`, `longitude`, `rating`) VALUES
-(2, 'Kampung adat Boti', '-', '-', '-9.56522781556891', '124.23324709489728', 1),
-(3, 'Gunung Mutis', '-', '-', '-9.565125658547931', '124.18302099829398', 2),
-(4, 'Fatumnasi', '-', '-', '-9.712473063953183', ' 124.22802736659872', 1),
-(5, 'Fatunausus', '-', '-', '-9.802771229973178', ' 124.30737749543702', 1),
-(6, 'Air Terjun Oehala', '-', '-', '-9.62871123927298', ' 124.63119345208362', 1),
-(7, 'Fatukopa', '-', '-', '-9.979412177412835', ' 124.5182035605519', 1),
-(8, 'Kolbano', '-', '-', '-10.154238976191714', ' 124.31347258714773', 1),
-(9, 'Oetune', '-', '-', '-9.833087380993256', ' 124.41281113776452', 1),
-(10, 'Benteng Nonef', '-', '-', '-9.847900321615707', ' 124.26583459729325', 1),
-(11, 'Taman Bu\'at', '-', '-', '-9.90892879933305', ' 124.53599478383306', 1);
+INSERT INTO `alternatif` (`id_alternatif`, `nama_alternatif`, `alamat`, `gambar`, `latitude`, `longitude`, `rating`, `kategori`) VALUES
+(2, 'Kampung adat Boti', '-', '-', '-9.56522781556891', '124.23324709489728', 1, 'Budaya'),
+(3, 'Gunung Mutis', '-', '-', '-9.565125658547931', '124.18302099829398', 2, 'Alam'),
+(4, 'Fatumnasi', '-', '-', '-9.712473063953183', ' 124.22802736659872', 1, 'Alam'),
+(5, 'Fatunausus', '-', '-', '-9.802771229973178', ' 124.30737749543702', 1, 'Alam'),
+(6, 'Air Terjun Oehala', '-', '-', '-9.62871123927298', ' 124.63119345208362', 1, 'Alam'),
+(7, 'Fatukopa', '-', '-', '-9.979412177412835', ' 124.5182035605519', 1, 'Alam'),
+(8, 'Kolbano', '-', '-', '-10.154238976191714', ' 124.31347258714773', 1, 'Alam'),
+(9, 'Oetune', '-', '-', '-9.833087380993256', ' 124.41281113776452', 1, 'Alam'),
+(10, 'Benteng Nonef', '-', '-', '-9.847900321615707', ' 124.26583459729325', 1, 'Buatan'),
+(11, 'Taman Bu\'at', '-', '-', '-9.90892879933305', ' 124.53599478383306', 1, 'Budaya');
 
 -- --------------------------------------------------------
 
