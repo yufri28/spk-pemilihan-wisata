@@ -17,6 +17,10 @@ class Sub_Kriteria{
     {
         return $this->db->query("SELECT * FROM `kriteria`");
     }
+    public function getSubKriteriaFas()
+    {
+        return $this->db->query("SELECT * FROM `sub_kriteria` WHERE f_id_kriteria='C2'");
+    }
     public function tambahSubKriteria($dataSubKiteria)
     {
         $cekData = $this->db->query("SELECT * FROM `sub_kriteria` WHERE LOWER(nama_sub_kriteria) = '".strtolower($dataSubKiteria['nama_sub_kriteria'])."'");

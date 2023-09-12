@@ -4,8 +4,20 @@ unset($_SESSION['menu']);
 $_SESSION['menu'] = 'alternatif';
 require_once './header.php';
 require_once './classes/alternatif.php';
+require_once './classes/sub_kriteria.php';
 
 $dataAlternatif = $getDataAlternatif->getDataAlternatif();
+$dataSub = $Sub_Kriteria->getSubKriteriaFas();
+
+
+// $test = "fas1, fas2 dan fas3";
+// $e = str_replace("dan", ",", $test);
+
+// $explod = explode(", ",$test);
+
+// echo $e;
+$teks = "";
+$fasId = 0;
 if(isset($_POST['simpan'])){
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] === UPLOAD_ERR_OK) {
         $namaFile = $_FILES['gambar']['name'];
@@ -37,23 +49,61 @@ if(isset($_POST['simpan'])){
             $longitude = htmlspecialchars($_POST['longitude']);
             $alamat = htmlspecialchars($_POST['alamat']);
             $rating = htmlspecialchars($_POST['rating']);
+            $kategori = htmlspecialchars($_POST['kategori']);
             $biaya = htmlspecialchars($_POST['biaya']);
-            $fasilitas = htmlspecialchars($_POST['fasilitas']);
             $jarak = htmlspecialchars($_POST['jarak']);
             $jumlah_pengunjung = htmlspecialchars($_POST['jumlah-pengunjung']);
-           
+
+
+            $fasilitas = htmlspecialchars($_POST['fasilitas']);
+            $explod = explode(", ",$fasilitas);
+            foreach ($explod as $key => $value) {
+                if($key == count($explod)-1){
+                    $teks .= "dan ".$value;
+                }else if($key == count($explod)-2){
+                    $teks .= $value." ";
+                }else{
+                    $teks .= $value.", ";
+                }
+            }
+            foreach ($dataSub as $key => $sub) {
+                if($sub['bobot_sub_kriteria'] == 5 && count($explod) == 5)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 4 && count($explod) == 4)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 3 && count($explod) == 3)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 2 && count($explod) == 2)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 1 && count($explod) == 1)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+            }
+            
+            
 
             $dataAlt = [
                 'nama_alternatif' => $namaAlternatif,
-                'latitude' =>$latitude,
+                'latitude' => $latitude,
                 'longitude' => $longitude,
                 'rating' => $rating,
+                'kategori' => $kategori,
                 'gambar' => $namaFile,
+                'fasilitas_alt' => $teks,
                 'alamat' => $alamat       
             ];
             $dataSubKriteria = [
                 'C1' => $biaya,
-                'C2' => $fasilitas,
+                'C2' => $fasId,
                 'C3' => $jarak,
                 'C4' => $jumlah_pengunjung
         
@@ -107,11 +157,44 @@ if(isset($_POST['edit'])){
             $longitude = htmlspecialchars($_POST['longitude']);
             $alamat = htmlspecialchars($_POST['alamat']);
             $rating = htmlspecialchars($_POST['rating']);
+            $kategori = htmlspecialchars($_POST['kategori']);
             $biaya = htmlspecialchars($_POST['biaya']);
-            $fasilitas = htmlspecialchars($_POST['fasilitas']);
             $jarak = htmlspecialchars($_POST['jarak']);
             $jumlah_pengunjung = htmlspecialchars($_POST['jumlah-pengunjung']);
         
+            $fasilitas = htmlspecialchars($_POST['fasilitas']);
+            $explod = explode(", ",$fasilitas);
+            foreach ($explod as $key => $value) {
+                if($key == count($explod)-1){
+                    $teks .= "dan ".$value;
+                }else if($key == count($explod)-2){
+                    $teks .= $value." ";
+                }else{
+                    $teks .= $value.", ";
+                }
+            }
+            foreach ($dataSub as $key => $sub) {
+                if($sub['bobot_sub_kriteria'] == 5 && count($explod) == 5)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 4 && count($explod) == 4)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 3 && count($explod) == 3)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 2 && count($explod) == 2)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 1 && count($explod) == 1)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+            }
         
             $dataAlt = [
                 'id_alternatif' => $id_alternatif,
@@ -119,11 +202,13 @@ if(isset($_POST['edit'])){
                 'latitude' =>$latitude,
                 'longitude' => $longitude,
                 'rating' => $rating,
+                'kategori' => $kategori,
                 'gambar' => $namaFile,
+                'fasilitas_alt' => $teks,
                 'alamat' => $alamat       
             ];
 
-            $dataSubKriteria = [$biaya,$fasilitas,$jarak,$jumlah_pengunjung];
+            $dataSubKriteria = [$biaya,$fasId,$jarak,$jumlah_pengunjung];
             $getDataAlternatif->editAlternatif($dataAlt,$dataSubKriteria);
         } else {
             return $_SESSION['error'] = 'Tidak ada data yang dikirim!';
@@ -135,11 +220,45 @@ if(isset($_POST['edit'])){
         $longitude = htmlspecialchars($_POST['longitude']);
         $alamat = htmlspecialchars($_POST['alamat']);
         $rating = htmlspecialchars($_POST['rating']);
+        $kategori = htmlspecialchars($_POST['kategori']);
         $biaya = htmlspecialchars($_POST['biaya']);
-        $fasilitas = htmlspecialchars($_POST['fasilitas']);
+        // $fasilitas = htmlspecialchars($_POST['fasilitas']);
         $jarak = htmlspecialchars($_POST['jarak']);
         $jumlah_pengunjung = htmlspecialchars($_POST['jumlah-pengunjung']);
-       
+
+        $fasilitas = htmlspecialchars($_POST['fasilitas']);
+            $explod = explode(", ",$fasilitas);
+            foreach ($explod as $key => $value) {
+                if($key == count($explod)-1){
+                    $teks .= "dan ".$value;
+                }else if($key == count($explod)-2){
+                    $teks .= $value." ";
+                }else{
+                    $teks .= $value.", ";
+                }
+            }
+            foreach ($dataSub as $key => $sub) {
+                if($sub['bobot_sub_kriteria'] == 5 && count($explod) == 5)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 4 && count($explod) == 4)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 3 && count($explod) == 3)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 2 && count($explod) == 2)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+                else if($sub['bobot_sub_kriteria'] == 1 && count($explod) == 1)
+                {
+                    $fasId = $sub['id_sub_kriteria'];
+                }
+            }
     
         $dataAlt = [
             'id_alternatif' => $id_alternatif,
@@ -147,10 +266,12 @@ if(isset($_POST['edit'])){
             'latitude' =>$latitude,
             'longitude' => $longitude,
             'rating' => $rating,
+            'kategori' => $kategori,
             'gambar' => $_POST['gambar_lama'],
+            'fasilitas_alt' => $teks,
             'alamat' => $alamat       
         ];
-        $dataSubKriteria = [$biaya,$fasilitas,$jarak,$jumlah_pengunjung];
+        $dataSubKriteria = [$biaya,$fasId,$jarak,$jumlah_pengunjung];
         $getDataAlternatif->editAlternatif($dataAlt,$dataSubKriteria);
     }    
 }   
@@ -234,6 +355,21 @@ Swal.fire({
                                     placeholder="0" />
                             </div>
                             <div class="mb-3 mt-3">
+                                <label for="kategori" class="form-label">Kategori</label>
+                                <select class="form-select" name="kategori" required
+                                    aria-label="Default select example">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="Budaya">Budaya</option>
+                                    <option value="Buatan">Buatan</option>
+                                    <option value="Alam">Alam</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="exampleFormControlInput1" class="form-label">Fasilitas</label>
+                                <textarea class="form-control" required placeholder="Pisahkan dengan tanda koma"
+                                    name="fasilitas"></textarea>
+                            </div>
+                            <div class="mb-3 mt-3">
                                 <label for="biaya" class="form-label">Biaya</label>
                                 <select class="form-select" name="biaya" required aria-label="Default select example">
                                     <option value="">-- Biaya --</option>
@@ -243,7 +379,7 @@ Swal.fire({
                                     <?php endforeach;?>
                                 </select>
                             </div>
-                            <div class="mb-3 mt-3">
+                            <!-- <div class="mb-3 mt-3">
                                 <label for="fasilitas" class="form-label">Fasilitas</label>
                                 <select class="form-select" name="fasilitas" required
                                     aria-label="Default select example">
@@ -253,7 +389,7 @@ Swal.fire({
                                         <?=$fasilitas['spesifikasi'];?></option>
                                     <?php endforeach;?>
                                 </select>
-                            </div>
+                            </div> -->
                             <div class="mb-3 mt-3">
                                 <label for="jarak" class="form-label">Jarak Pusat Kota</label>
                                 <select class="form-select" name="jarak" required aria-label="Default select example">
@@ -304,6 +440,7 @@ Swal.fire({
                                         <th scope="col">Latitude</th>
                                         <th scope="col">Longitude</th>
                                         <th scope="col">Alamat</th>
+                                        <th scope="col">Kategori</th>
                                         <th scope="col">Biaya masuk</th>
                                         <th scope="col">Fasilitas</th>
                                         <th scope="col">Jarak dari pusat kota</th>
@@ -326,8 +463,10 @@ Swal.fire({
                                         <td><?=$alternatif['latitude'];?></td>
                                         <td><?=$alternatif['longitude'];?></td>
                                         <td><?=$alternatif['alamat'];?></td>
+                                        <td><?=$alternatif['kategori'];?></td>
                                         <td><?=$alternatif['spesifikasi_C1'];?></td>
-                                        <td><?=$alternatif['spesifikasi_C2'];?></td>
+                                        <td><?=$alternatif['fasilitas_alt'] != '' ? $alternatif['fasilitas_alt']:'-';?>
+                                        </td>
                                         <td><?=$alternatif['spesifikasi_C3'];?></td>
                                         <td><?=$alternatif['spesifikasi_C4'];?></td>
                                         <td>
@@ -402,6 +541,22 @@ Swal.fire({
                             class="form-control" id="rating" placeholder="0" />
                     </div>
                     <div class="mb-3 mt-3">
+                        <label for="kategori" class="form-label">Kategori</label>
+                        <select class="form-select" name="kategori" required aria-label="Default select example">
+                            <option value="">-- Pilih --</option>
+                            <option <?=$alternatif['kategori'] == 'Budaya'?'selected':'';?> value="Budaya">Budaya
+                            </option>
+                            <option <?=$alternatif['kategori'] == 'Buatan'?'selected':'';?> value="Buatan">Buatan
+                            </option>
+                            <option <?=$alternatif['kategori'] == 'Alam'?'selected':'';?> value="Alam">Alam</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="exampleFormControlInput1" class="form-label">Fasilitas</label>
+                        <textarea class="form-control" required placeholder="Pisahkan dengan tanda koma"
+                            name="fasilitas"><?= str_replace(" dan ", ", ", $alternatif['fasilitas_alt']); ?></textarea>
+                    </div>
+                    <div class="mb-3 mt-3">
                         <label for="biaya" class="form-label">Biaya</label>
                         <select class="form-select" name="biaya" required aria-label="Default select example">
                             <option value="">-- Biaya --</option>
@@ -412,7 +567,7 @@ Swal.fire({
                             <?php endforeach;?>
                         </select>
                     </div>
-                    <div class="mb-3 mt-3">
+                    <!-- <div class="mb-3 mt-3">
                         <label for="fasilitas" class="form-label">Fasilitas</label>
                         <select class="form-select" name="fasilitas" required aria-label="Default select example">
                             <option value="">-- Pilih Fasilitas --</option>
@@ -422,7 +577,7 @@ Swal.fire({
                                 <?=$fasilitas['spesifikasi'];?></option>
                             <?php endforeach;?>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="mb-3 mt-3">
                         <label for="jarak" class="form-label">Jarak Pusat Kota</label>
                         <select class="form-select" name="jarak" required aria-label="Default select example">
