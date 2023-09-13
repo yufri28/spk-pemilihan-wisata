@@ -112,7 +112,8 @@ $tempat_wisata_alam = $koneksi->query("SELECT * FROM alternatif WHERE kategori='
                     <?php foreach ($tempat_wisata_alam as $key => $wisata):?>
                     <div class="col-lg-4 mt-1 content2">
                         <div class="card">
-                            <img src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':"./user_area/gambar/".$wisata['gambar'];?>"
+                            <img style="height: 200px;"
+                                src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':"./user_area/gambar/".$wisata['gambar'];?>"
                                 class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title"><?=$wisata['nama_alternatif'];?></h5>
@@ -138,7 +139,8 @@ $tempat_wisata_alam = $koneksi->query("SELECT * FROM alternatif WHERE kategori='
                     <?php foreach ($tempat_wisata_budaya as $key => $wisata):?>
                     <div class="col-lg-4 mt-1 content">
                         <div class="card">
-                            <img src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':"./user_area/gambar/".$wisata['gambar'];?>"
+                            <img style="height: 200px;"
+                                src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':"./user_area/gambar/".$wisata['gambar'];?>"
                                 class="
                                 card-img-top" alt="...">
                             <div class="card-body">
@@ -165,7 +167,8 @@ $tempat_wisata_alam = $koneksi->query("SELECT * FROM alternatif WHERE kategori='
                     <?php foreach ($tempat_wisata_buatan as $key => $wisata):?>
                     <div class="col-lg-4 mt-1 content1">
                         <div class="card">
-                            <img src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':"./user_area/gambar/".$wisata['gambar'];?>"
+                            <img style="height: 200px;"
+                                src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':"./user_area/gambar/".$wisata['gambar'];?>"
                                 class="
                                 card-img-top" alt="...">
                             <div class="card-body">

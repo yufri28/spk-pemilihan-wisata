@@ -23,6 +23,7 @@
             a.longitude,
             a.alamat,
             a.gambar,
+            a.rating, a.kategori, a.biaya_alt, a.fasilitas_alt, a.jarak_alt, a.jumlah_peng_alt,
             MAX(CASE WHEN k.id_kriteria = 'C1' THEN sk.spesifikasi END) AS namaC1,
             MAX(CASE WHEN k.id_kriteria = 'C2' THEN sk.spesifikasi END) AS namaC2,
             MAX(CASE WHEN k.id_kriteria = 'C3' THEN sk.spesifikasi END) AS namaC3,

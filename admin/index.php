@@ -4,7 +4,7 @@ unset($_SESSION['menu']);
 $_SESSION['menu'] = 'beranda-admin';
 require_once './header.php';
 
-$alternatif = $koneksi->query("SELECT a.nama_alternatif, a.id_alternatif, a.gambar, a.latitude, a.longitude,
+$alternatif = $koneksi->query("SELECT a.nama_alternatif, a.id_alternatif, a.gambar, a.latitude, a.longitude, a.rating, a.kategori, a.biaya_alt, a.fasilitas_alt, a.jarak_alt, a.jumlah_peng_alt,
 MAX(CASE WHEN k.id_kriteria = 'C1' THEN kak.id_alt_kriteria END) AS id_sub_C1,
 MIN(CASE WHEN k.id_kriteria = 'C2' THEN kak.id_alt_kriteria END) AS id_sub_C2,
 MIN(CASE WHEN k.id_kriteria = 'C3' THEN kak.id_alt_kriteria END) AS id_sub_C3,
@@ -72,9 +72,9 @@ foreach ($alternatif as $location) {
     if ($location['latitude'] != '-' && $location['longitude'] != '-') {
         echo "var marker = L.marker([" . $location['latitude'] . "," . $location['longitude'] . "]).addTo(mymap);";
         if ($location['gambar'] == '-') {
-            echo "marker.bindPopup('<div class=\"custom-popup\"><img src=\"../user/gambar/" . "no-img.png" . "\" width=\"210\" height=\"150\"><br><b>" . htmlspecialchars($location['nama_alternatif']) . "</b><br><div style=\"word-wrap: break-word;width:200px\">Biaya masuk : " . $location['spesifikasi_C1'] . "<br>Fasilitas : " . $location['spesifikasi_C2'] . "<br>Jarak dari pusat kota : " . $location['spesifikasi_C3'] . "<br>Jumlah pengunjung : " . $location['spesifikasi_C4'] . "<br></div></div>', {className:'custom-popup'}).openPopup();";
+            echo "marker.bindPopup('<div class=\"custom-popup\"><img src=\"../user_area/gambar/" . "no-img.png" . "\" width=\"210\" height=\"150\"><br><b>" . htmlspecialchars($location['nama_alternatif']) . "</b><br><div style=\"word-wrap: break-word;width:200px\">Biaya masuk : " . $location['biaya_alt'] . "<br>Fasilitas : " . $location['fasilitas_alt'] . "<br>Jarak dari pusat kota : " . $location['jarak_alt'] . "<br>Jumlah pengunjung : " . $location['jumlah_peng_alt'] . "<br></div></div>', {className:'custom-popup'}).openPopup();";
         } else {
-            echo "marker.bindPopup('<div class=\"custom-popup\"><img src=\"../user/gambar/" . $location['gambar'] . "\" width=\"200\" height=\"150\"><br><b>" . htmlspecialchars($location['nama_alternatif']) . "</b><br><div style=\"word-wrap: break-word;\">Biaya masuk : " . $location['spesifikasi_C1'] . "<br>Fasilitas : " . $location['spesifikasi_C2'] . "<br>Jarak dari pusat kota : " . $location['spesifikasi_C3'] . "<br>Jumlah pengunjung : " . $location['spesifikasi_C4'] . "<br></div></div>', {className:'custom-popup'}).openPopup();";
+            echo "marker.bindPopup('<div class=\"custom-popup\"><img src=\"../user_area/gambar/" . $location['gambar'] . "\" width=\"200\" height=\"150\"><br><b>" . htmlspecialchars($location['nama_alternatif']) . "</b><br><div style=\"word-wrap: break-word;\">Biaya masuk : " . $location['biaya_alt'] . "<br>Fasilitas : " . $location['fasilitas_alt'] . "<br>Jarak dari pusat kota : " . $location['jarak_alt'] . "<br>Jumlah pengunjung : " . $location['jumlah_peng_alt'] . "<br></div></div>', {className:'custom-popup'}).openPopup();";
         }
     }
 }

@@ -278,10 +278,10 @@ include_once './user_area/hitung.php';
                                                         alt=""></a>
                                             </td>
                                             <td><?= $value['nama_alternatif']; ?></td>
-                                            <td><?= $value['namaC1']; ?></td>
-                                            <td><?= $value['namaC2']; ?></td>
-                                            <td><?= $value['namaC3']; ?></td>
-                                            <td><?= $value['namaC4']; ?></td>
+                                            <td><?=$value['biaya_alt']?></td>
+                                            <td><?=$value['fasilitas_alt']?></td>
+                                            <td><?=$value['jarak_alt']?></td>
+                                            <td><?=$value['jumlah_peng_alt']?></td>
                                             <td>
                                                 <a href="https://www.google.com/maps/dir/?api=1&destination=<?=$value['latitude'];?>,<?=$value['longitude'];?>"
                                                     title="Lokasi di MAPS" class="btn btn-sm btn-success">Lokasi</a>
@@ -335,10 +335,10 @@ include_once './user_area/hitung.php';
                                             <tr>
                                                 <th scope="row"><?=$key+1;?></th>
                                                 <td><?=$value['nama_alternatif']?></td>
-                                                <td><?=$value['namaC1']?></td>
-                                                <td><?=$value['namaC2']?></td>
-                                                <td><?=$value['namaC3']?></td>
-                                                <td><?=$value['namaC4']?></td>
+                                                <td><?=$value['biaya_alt']?></td>
+                                                <td><?=$value['fasilitas_alt']?></td>
+                                                <td><?=$value['jarak_alt']?></td>
+                                                <td><?=$value['jumlah_peng_alt']?></td>
                                                 <td><?=$value['nilai_akhir'];?></td>
                                                 <td>
                                                     <a href="https://www.google.com/maps/dir/?api=1&destination=<?=$value['lat'];?>,<?=$value['long'];?>"
@@ -374,9 +374,9 @@ include_once './user_area/hitung.php';
         if ($location['lat'] != '-' && $location['long'] != '-') {
             echo "var marker = L.marker([" . $location['lat'] . "," . $location['long'] . "]).addTo(mymap);";
             if ($location['gambar'] == '-') {
-                echo "marker.bindPopup('<div class=\"custom-popup\"><img src=\"./user_area/gambar/" . "no-img.png" . "\" width=\"210\" height=\"150\"><br><b>" . $iconNumber.'. '.htmlspecialchars($location['nama_alternatif']) . "</b><br><div style=\"word-wrap: break-word;width:200px\">Biaya masuk : " . $location['namaC1'] . "<br>Fasilitas : " . $location['namaC2'] . "<br>Jarak dari pusat kota : " . $location['namaC3'] . "<br>Jumlah pengunjung : " . $location['namaC4'] . "<br></div></div>', {className:'custom-popup'}).openPopup();";
+                echo "marker.bindPopup('<div class=\"custom-popup\"><img src=\"./user_area/gambar/" . "no-img.png" . "\" width=\"210\" height=\"150\"><br><b>" . $iconNumber.'. '.htmlspecialchars($location['nama_alternatif']) . "</b><br><div style=\"word-wrap: break-word;width:200px\">Biaya masuk : " . $location['biaya_alt'] . "<br>Fasilitas : " . $location['fasilitas_alt'] . "<br>Jarak dari pusat kota : " . $location['jarak_alt'] . "<br>Jumlah pengunjung : " . $location['jumlah_peng_alt'] . "<br></div></div>', {className:'custom-popup'}).openPopup();";
             } else {
-                echo "marker.bindPopup('<div class=\"custom-popup\"><img src=\"./user_area/gambar/" . $location['gambar'] . "\" width=\"200\" height=\"150\"><br><b>" . htmlspecialchars($location['nama_alternatif']) . "</b><br><div style=\"word-wrap: break-word;\">Biaya masuk : " . $location['namaC1'] . "<br>Fasilitas : " . $location['namaC2'] . "<br>Jarak dari pusat kota : " . $location['namaC3'] . "<br>Jumlah pengunjung : " . $location['namaC4'] . "<br>" . "<br></div></div>', {className:'custom-popup'}).openPopup();";
+                echo "marker.bindPopup('<div class=\"custom-popup\"><img src=\"./user_area/gambar/" . $location['gambar'] . "\" width=\"200\" height=\"150\"><br><b>" . htmlspecialchars($location['nama_alternatif']) . "</b><br><div style=\"word-wrap: break-word;\">Biaya masuk : " . $location['biaya_alt'] . "<br>Fasilitas : " . $location['fasilitas_alt'] . "<br>Jarak dari pusat kota : " . $location['jarak_alt'] . "<br>Jumlah pengunjung : " . $location['jumlah_peng_alt'] . "<br>" . "<br></div></div>', {className:'custom-popup'}).openPopup();";
             }
         }
         $iconNumber--;

@@ -13,7 +13,7 @@
         public function getDataAlternatif()
         {
             // return $this->db->query("SELECT * FROM alternatif");
-            return $this->db->query("SELECT a.nama_alternatif, a.id_alternatif, a.latitude, a.longitude, a.alamat, a.gambar, a.rating, a.kategori, a.fasilitas_alt, kak.id_alt_kriteria,
+            return $this->db->query("SELECT a.nama_alternatif, a.id_alternatif, a.latitude, a.longitude, a.alamat, a.gambar, a.rating, a.kategori, a.biaya_alt, a.fasilitas_alt, a.jarak_alt, a.jumlah_peng_alt, kak.id_alt_kriteria,
                 MAX(CASE WHEN k.id_kriteria = 'C1' THEN kak.id_alt_kriteria END) AS id_alt_C1,
                 MIN(CASE WHEN k.id_kriteria = 'C2' THEN kak.id_alt_kriteria END) AS id_alt_C2,
                 MIN(CASE WHEN k.id_kriteria = 'C3' THEN kak.id_alt_kriteria END) AS id_alt_C3,
@@ -43,8 +43,8 @@
             if ($cekData->num_rows > 0) {
                 return $_SESSION['error'] = 'Data sudah ada!';
             } else {
-                $stmtInsertAlt = $this->db->prepare("INSERT INTO alternatif(nama_alternatif, alamat, gambar, latitude, longitude, rating, kategori, fasilitas_alt) VALUES (?,?,?,?,?,?,?,?)");
-                $stmtInsertAlt->bind_param("sssssiss", $dataAlternatif['nama_alternatif'], $dataAlternatif['alamat'], $dataAlternatif['gambar'], $dataAlternatif['latitude'], $dataAlternatif['longitude'], $dataAlternatif['rating'],$dataAlternatif['kategori'],$dataAlternatif['fasilitas_alt']);
+                $stmtInsertAlt = $this->db->prepare("INSERT INTO alternatif(nama_alternatif, alamat, gambar, latitude, longitude, rating, kategori, biaya_alt, fasilitas_alt, jarak_alt, jumlah_peng_alt) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                $stmtInsertAlt->bind_param("sssssisisii", $dataAlternatif['nama_alternatif'], $dataAlternatif['alamat'], $dataAlternatif['gambar'], $dataAlternatif['latitude'], $dataAlternatif['longitude'], $dataAlternatif['rating'],$dataAlternatif['kategori'],$dataAlternatif['biaya_alt'],$dataAlternatif['fasilitas_alt'],$dataAlternatif['jarak_alt'],$dataAlternatif['jumlah_peng_alt']);
                 $stmtInsertAlt->execute();
                 $getId = $this->db->query("SELECT id_alternatif FROM `alternatif` WHERE nama_alternatif = '".$dataAlternatif['nama_alternatif']."'");
                 $fetchId = mysqli_fetch_assoc($getId);
@@ -70,7 +70,7 @@
             // $stmtUpdateAlt = $this->db->prepare("UPDATE alternatif SET nama_alternatif=?, alamat=?, latitude=?, longitude=? WHERE id_alternatif=?");
             // $stmtUpdateAlt->bind_param("ssssi", $dataAlternatif['nama_alternatif'], $dataAlternatif['alamat'], $dataAlternatif['latitude'], $dataAlternatif['longitude'], $dataAlternatif['id_alternatif']);
             // $stmtUpdateAlt->execute();
-            $query = "UPDATE alternatif SET nama_alternatif='" . $dataAlternatif['nama_alternatif'] . "', alamat='" . $dataAlternatif['alamat'] . "' , gambar='" . $dataAlternatif['gambar'] . "', latitude='" . $dataAlternatif['latitude'] . "', longitude='" . $dataAlternatif['longitude'] . "', rating='" . $dataAlternatif['rating'] . "', kategori='" . $dataAlternatif['kategori'] . "', fasilitas_alt='" . $dataAlternatif['fasilitas_alt'] . "' WHERE id_alternatif=" . $dataAlternatif['id_alternatif'];
+            $query = "UPDATE alternatif SET nama_alternatif='" . $dataAlternatif['nama_alternatif'] . "', alamat='" . $dataAlternatif['alamat'] . "' , gambar='" . $dataAlternatif['gambar'] . "', latitude='" . $dataAlternatif['latitude'] . "', longitude='" . $dataAlternatif['longitude'] . "', rating='" . $dataAlternatif['rating'] . "', kategori='" . $dataAlternatif['kategori'] . "', biaya_alt='" . $dataAlternatif['biaya_alt'] . "', fasilitas_alt='" . $dataAlternatif['fasilitas_alt'] . "', jarak_alt='" . $dataAlternatif['jarak_alt'] . "', jumlah_peng_alt='" . $dataAlternatif['jumlah_peng_alt'] . "' WHERE id_alternatif=" . $dataAlternatif['id_alternatif'];
             $stmtUpdateAlt = $this->db->query($query);
             
             if ($stmtUpdateAlt) {

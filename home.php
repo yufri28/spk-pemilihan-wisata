@@ -131,9 +131,10 @@ else{
                     <?php foreach ($tempat_wisata as $key => $wisata):?>
                     <div class="col-lg-4 mt-1 content">
                         <div class="card">
-                            <img src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':$wisata['gambar'];?>"
+                            <img style="height: 200px;"
+                                src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':"./user_area/gambar/".$wisata['gambar'];?>"
                                 class="
-                                card-img-top" alt="...">
+                            card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title"><?=$wisata['nama_alternatif'];?></h5>
                                 <?php for($i = 0; $i < $wisata['rating'];$i++): ?>
