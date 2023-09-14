@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Sep 2023 pada 17.05
+-- Waktu pembuatan: 14 Sep 2023 pada 02.55
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.1.6
 
@@ -36,24 +36,29 @@ CREATE TABLE `alternatif` (
   `longitude` varchar(255) NOT NULL,
   `rating` int(1) NOT NULL,
   `kategori` enum('Budaya','Buatan','Alam') NOT NULL,
-  `fasilitas_alt` text NOT NULL
+  `biaya_alt` int(11) NOT NULL,
+  `fasilitas_alt` text NOT NULL,
+  `jarak_alt` decimal(10,2) NOT NULL,
+  `jumlah_peng_alt` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `alternatif`
 --
 
-INSERT INTO `alternatif` (`id_alternatif`, `nama_alternatif`, `alamat`, `gambar`, `latitude`, `longitude`, `rating`, `kategori`, `fasilitas_alt`) VALUES
-(2, 'Kampung adat Boti', '-', '-', '-9.56522781556891', '124.23324709489728', 1, 'Budaya', ''),
-(3, 'Gunung Mutis', '-', '-', '-9.565125658547931', '124.18302099829398', 2, '', ''),
-(4, 'Fatumnasi', '-', '-', '-9.712473063953183', ' 124.22802736659872', 1, 'Alam', ''),
-(5, 'Fatunausus', '-', '-', '-9.802771229973178', ' 124.30737749543702', 1, 'Alam', ''),
-(6, 'Air Terjun Oehala', '-', '-', '-9.62871123927298', ' 124.63119345208362', 1, 'Alam', ''),
-(7, 'Fatukopa', '-', '-', '-9.979412177412835', ' 124.5182035605519', 1, 'Alam', ''),
-(8, 'Kolbano', '-', '-', '-10.154238976191714', ' 124.31347258714773', 1, 'Alam', ''),
-(9, 'Oetune', '-', '-', '-9.833087380993256', ' 124.41281113776452', 1, 'Alam', ''),
-(10, 'Benteng Nonef', '-', '-', '-9.847900321615707', ' 124.26583459729325', 1, 'Buatan', ''),
-(11, 'Taman Bu\'at', '-', '-', '-9.90892879933305', ' 124.53599478383306', 1, 'Budaya', '');
+INSERT INTO `alternatif` (`id_alternatif`, `nama_alternatif`, `alamat`, `gambar`, `latitude`, `longitude`, `rating`, `kategori`, `biaya_alt`, `fasilitas_alt`, `jarak_alt`, `jumlah_peng_alt`) VALUES
+(2, 'Kampung adat Boti', '-', '-', '-9.56522781556891', '124.23324709489728', 1, 'Budaya', 0, '', '0.00', 0),
+(3, 'Gunung Mutis', '-', '-', '-9.565125658547931', '124.18302099829398', 2, '', 0, '', '0.00', 0),
+(4, 'Fatumnasi', '-', '-', '-9.712473063953183', ' 124.22802736659872', 1, 'Alam', 0, '', '0.00', 0),
+(5, 'Fatunausus', '-', '-', '-9.802771229973178', ' 124.30737749543702', 1, 'Alam', 0, '', '0.00', 0),
+(6, 'Air Terjun Oehala', '-', '-', '-9.62871123927298', ' 124.63119345208362', 1, 'Alam', 0, '', '0.00', 0),
+(7, 'Fatukopa', '-', '-', '-9.979412177412835', ' 124.5182035605519', 1, 'Alam', 0, '', '0.00', 0),
+(8, 'Kolbano', '-', '-', '-10.154238976191714', ' 124.31347258714773', 1, 'Alam', 0, '', '0.00', 0),
+(9, 'Oetune', '-', '-', '-9.833087380993256', ' 124.41281113776452', 1, 'Alam', 0, '', '0.00', 0),
+(10, 'Benteng Nonef', '-', '-', '-9.847900321615707', ' 124.26583459729325', 1, 'Buatan', 0, '', '0.00', 0),
+(11, 'Taman Bu\'at', '-', '-', '-9.90892879933305', ' 124.53599478383306', 1, 'Budaya', 0, '', '0.00', 0),
+(17, 'Halo Dek', 'sASAAS', 'Screenshot (2).png', '9.84790032', '124.41281113776452', 1, 'Budaya', 22999, 'DASDAS, dassa, eqwq dan eqwqwe', '0.31', 2291),
+(18, 'dasdas', 'SSAsA', 'images_1.png', '9.84790032', '124.41281113776452', 2, 'Alam', 1000, 'SasA, aSSasA dan SasA', '23.00', 232);
 
 -- --------------------------------------------------------
 
@@ -112,7 +117,15 @@ INSERT INTO `kecocokan_alt_kriteria` (`id_alt_kriteria`, `f_id_alternatif`, `f_i
 (46, 2, 'C1', 1),
 (47, 2, 'C2', 8),
 (48, 2, 'C3', 13),
-(49, 2, 'C4', 20);
+(49, 2, 'C4', 20),
+(72, 17, 'C1', 4),
+(73, 17, 'C2', 7),
+(74, 17, 'C3', 14),
+(75, 17, 'C4', 19),
+(76, 18, 'C1', 4),
+(77, 18, 'C2', 8),
+(78, 18, 'C3', 14),
+(79, 18, 'C4', 19);
 
 -- --------------------------------------------------------
 
@@ -241,13 +254,13 @@ ALTER TABLE `sub_kriteria`
 -- AUTO_INCREMENT untuk tabel `alternatif`
 --
 ALTER TABLE `alternatif`
-  MODIFY `id_alternatif` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_alternatif` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `kecocokan_alt_kriteria`
 --
 ALTER TABLE `kecocokan_alt_kriteria`
-  MODIFY `id_alt_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id_alt_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT untuk tabel `login_user`
