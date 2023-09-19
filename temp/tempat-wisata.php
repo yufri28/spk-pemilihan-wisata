@@ -107,6 +107,7 @@ $tempat_wisata_alam = $koneksi->query("SELECT * FROM alternatif WHERE kategori='
         <!-- Jumbotron -->
         <div class="text-center text-lg-start">
             <div class="container col-lg-8" style="margin-top: 10%;">
+                <?php if(mysqli_num_rows($tempat_wisata_alam) > 0):?>
                 <h5 class="" style="margin-top:100px;">Daftar Wisata Alam</h5>
                 <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
                     <?php foreach ($tempat_wisata_alam as $key => $wisata):?>
@@ -134,6 +135,8 @@ $tempat_wisata_alam = $koneksi->query("SELECT * FROM alternatif WHERE kategori='
                     <a class="btn btn-outline-secondary" id="loadMore2">Load More</a>
                 </div>
                 <?php endif;?>
+                <?php endif;?>
+                <?php if(mysqli_num_rows($tempat_wisata_alam) > 0):?>
                 <h5 class="" style="margin-top:100px;">Daftar Wisata Budaya</h5>
                 <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
                     <?php foreach ($tempat_wisata_budaya as $key => $wisata):?>
@@ -157,11 +160,13 @@ $tempat_wisata_alam = $koneksi->query("SELECT * FROM alternatif WHERE kategori='
                     </div>
                     <?php endforeach;?>
                 </div>
+                <?php endif;?>
                 <?php if(mysqli_num_rows($tempat_wisata_budaya) > 6):?>
                 <div class="button d-flex justify-content-center mt-3">
                     <a class="btn btn-outline-secondary" id="loadMore">Load More</a>
                 </div>
                 <?php endif;?>
+                <?php if(mysqli_num_rows($tempat_wisata_buatan) > 0):?>
                 <h5 class="" style="margin-top:100px;">Daftar Wisata Buatan</h5>
                 <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
                     <?php foreach ($tempat_wisata_buatan as $key => $wisata):?>
@@ -189,6 +194,7 @@ $tempat_wisata_alam = $koneksi->query("SELECT * FROM alternatif WHERE kategori='
                 <div class="button d-flex justify-content-center mt-3">
                     <a class="btn btn-outline-secondary" id="loadMore1">Load More</a>
                 </div>
+                <?php endif;?>
                 <?php endif;?>
             </div>
         </div>

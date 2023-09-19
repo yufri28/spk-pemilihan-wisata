@@ -248,79 +248,53 @@ include_once './user_area/hitung.php';
                 <div class="col-md-8 mt-3 mb-3">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="text-start">DAFTAR WISATA</h5>
-                            <hr>
-                            <div class="d-flex justify-content-end">
-                                <!-- <div class="form-group me-1">
-                                    <input type="text" class="form-control form-control-sm" id="filterInput"
-                                        style="border-radius:3em; border: 1px solid gray;" placeholder="Cari wisata...">
-                                </div> -->
-                                <div class="form-group">
-                                    <select id="filterSelect" style="border-radius:3em; border: 1px solid gray;"
-                                        class="form-control form-control-sm">
-                                        <option value="">-- Pilih Jenis Wisata --</option>
-                                        <option value="Alam">Alam</option>
-                                        <option value="Budaya">Budaya</option>
-                                        <option value="Buatan">Buatan</option>
-                                    </select>
-                                </div>
-                            </div>
+                            DAFTAR WISATA
                         </div>
                         <div class="card-body">
-                            <div class="container">
-                                <div class="row d-flex justify-content-center" id="cardContainer">
-                                    <?php foreach($kedekatan_rel as $key => $value):?>
-                                    <div class="card col-lg-3 m-2" style="width: 15rem;">
-                                        <a class="card-img-top" style="margin-left: -12px; margin-rigth:-12px;"
-                                            href="./user_area/gambar/<?= $value['gambar'] == '-'? 'no-img.png': $value['gambar'];?>"
-                                            data-lightbox="image-1" data-title="<?= $value['nama_alternatif']; ?>"><img
-                                                style="width:238px; height:200px;"
-                                                src="./user_area/gambar/<?= $value['gambar'] == '-'? 'no-img.png': $value['gambar']; ?>"
-                                                alt=""></a>
-
-                                        <div class="card-body">
-                                            <p class="card-title"><?= $key + 1; ?>. <?= $value['nama_alternatif']; ?>
-                                                (<span class="card-kategori"><?= $value['kategori']; ?></span>)
-                                            </p>
-                                            <div id="detail<?= $key; ?>" class="collapse">
-                                                <table class="table" style="font-size: 10pt;">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Harga</td>
-                                                            <td>:</td>
-                                                            <td><small><?= $value['biaya_alt']; ?></small></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Fasilitas</td>
-                                                            <td>:</td>
-                                                            <td><small>
-                                                                    <?= $value['fasilitas_alt']; ?></small></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Jarak</td>
-                                                            <td>:</td>
-                                                            <td><small><?= $value['jarak_alt']; ?> KM</small>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Pengunjung</td>
-                                                            <td>:</td>
-                                                            <td><small>
-                                                                    <?= $value['jumlah_peng_alt']; ?> Orang</small></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <button type="button" class="btn col-lg-12 btn-sm btn-primary"
-                                                data-toggle="collapse" data-target="#detail<?= $key; ?>">Detail</button>
-                                        </div>
-                                    </div>
-                                    <?php endforeach;?>
-                                </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered nowrap" style="width:100%"
+                                    id="table-penilaian">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Gambar</th>
+                                            <th scope="col">Nama Wisata</th>
+                                            <th scope="col">Biaya Masuk</th>
+                                            <th scope="col">Fasilitas</th>
+                                            <th scope="col">Jarak Pusat Kota</th>
+                                            <th scope="col">Jumlah Pengunjung</th>
+                                            <th scope="col">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider">
+                                        <?php foreach ($alternatif_kriteria  as $i => $value):?>
+                                        <tr>
+                                            <th scope="row"><?= $i+1; ?></th>
+                                            <td><a href="./user_area/gambar/<?= $value['gambar'] == '-'? 'no-img.png': $value['gambar'];?>"
+                                                    data-lightbox="image-1"
+                                                    data-title="<?= $value['nama_alternatif']; ?>"><img
+                                                        style="width:100px; height:100px;"
+                                                        src="./user_area/gambar/<?= $value['gambar'] == '-'? 'no-img.png': $value['gambar']; ?>"
+                                                        alt=""></a>
+                                            </td>
+                                            <td><?= $value['nama_alternatif']; ?></td>
+                                            <td><?=$value['biaya_alt']?></td>
+                                            <td><?=$value['fasilitas_alt']?></td>
+                                            <td><?=$value['jarak_alt']?></td>
+                                            <td><?=$value['jumlah_peng_alt']?></td>
+                                            <td>
+                                                <a href="https://www.google.com/maps/dir/?api=1&destination=<?=$value['latitude'];?>,<?=$value['longitude'];?>"
+                                                    title="Lokasi di MAPS" class="btn btn-sm btn-success">Lokasi</a>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach;?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- </div> -->
             </div>
         </div>
 
@@ -330,15 +304,15 @@ include_once './user_area/hitung.php';
                 <div class="d-xxl-flex">
                     <div class="col-xxl-12 mt-3 ms-xxl-6 mb-1">
                         <!-- <div class="card"> -->
-                        <!-- <div class="col-12">
+                        <div class="col-12">
                             <div class="card mb-4">
                                 <div class="card-body">
                                     <div id="mapid"></div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <!-- </div> -->
-                        <!-- <div class="card mt-2">
+                        <div class="card mt-2">
                             <div class="card-header">Hasil Perengkingan</div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -376,7 +350,7 @@ include_once './user_area/hitung.php';
                                     </table>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -474,26 +448,6 @@ include_once './user_area/hitung.php';
         });
         </script>
         <script>
-        // Ambil semua tombol "Go Somewhere"
-        var buttons = document.querySelectorAll(".btn.btn-primary");
-
-        // Tambahkan event listener ke masing-masing tombol
-        buttons.forEach(function(button) {
-            button.addEventListener("click", function() {
-                // Ambil target collapse ID yang sesuai dari tombol
-                var targetCollapseId = button.getAttribute("data-target");
-
-                // Toggle tampilan detail
-                var targetCollapse = document.querySelector(targetCollapseId);
-                if (targetCollapse.style.display === "none") {
-                    targetCollapse.style.display = "block";
-                } else {
-                    targetCollapse.style.display = "none";
-                }
-            });
-        });
-        </script>
-        <script>
         $(document).ready(function() {
             $("#prioritas_1").change(function() {
                 var prioritas_1 = $("#prioritas_1").val();
@@ -543,67 +497,6 @@ include_once './user_area/hitung.php';
                 });
             });
         });
-        </script>
-
-        <script>
-        // Ambil elemen input, select box, dan kontainer kartu
-        // var filterInput = document.getElementById('filterInput');
-        var filterSelect = document.getElementById('filterSelect');
-        var cardContainer = document.getElementById('cardContainer');
-
-        // Tambahkan event listener pada input dan select box untuk memantau perubahan
-        // filterInput.addEventListener('input', filterCards);
-        filterSelect.addEventListener('change', filterCards);
-
-        // Fungsi untuk memfilter kartu-kartu
-        function filterCards() {
-            // var filterText = filterInput.value.toLowerCase();
-            var filterOption = filterSelect.value.toLowerCase();
-            var cards = cardContainer.getElementsByClassName('card');
-
-            for (var i = 0; i < cards.length; i++) {
-                var card = cards[i];
-                var cardTitle = card.querySelector('.card-kategori').textContent.toLowerCase();
-                var displayStyle = 'block'; // Default: Tampilkan kartu
-
-                // Periksa apakah teks pada judul kartu cocok dengan filter
-                if (filterOption === '' || cardTitle.includes(filterOption)) {
-                    // if (!cardTitle.includes(filterText)) {
-                    //     displayStyle = 'none'; // Sembunyikan kartu jika tidak cocok dengan judul
-                    // }
-                } else {
-                    displayStyle = 'none'; // Sembunyikan kartu jika tidak cocok dengan opsi yang dipilih
-                }
-
-                card.style.display = displayStyle;
-            }
-        }
-
-
-        // // Fungsi untuk memfilter kartu-kartu
-        // function filterCards2() {
-        //     var filterText = filterInput.value.toLowerCase();
-        //     var cards = cardContainer.getElementsByClassName('card');
-
-        //     for (var i = 0; i < cards.length; i++) {
-        //         var card = cards[i];
-        //         var cardTitle = card.querySelector('.card-title').textContent.toLowerCase();
-        //         // var cardText = card.querySelector('.card-text').textContent.toLowerCase();
-
-        //         console.log(cardTitle)
-        //         // Periksa apakah teks pada judul atau isi kartu cocok dengan filter
-        //         if (cardTitle.includes(filterText)) {
-        //             card.style.display = 'block'; // Tampilkan kartu jika cocok
-        //         } else {
-        //             card.style.display = 'none'; // Sembunyikan kartu jika tidak cocok
-        //         }
-        //     }
-        // }
-
-        // Tambahkan event listener pada input untuk memantau perubahan
-        // filterInput.addEventListener('input', filterCards2);
-        // Pemanggilan awal saat halaman dimuat
-        filterSelect.addEventListener('DOMContentLoaded', filterCards);
         </script>
 </body>
 

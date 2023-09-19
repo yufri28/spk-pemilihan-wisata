@@ -176,6 +176,7 @@ foreach ($norm as $key => $value) {
         'nama_alternatif' => $value['nama_alternatif'],
         'nilai_akhir' => $V,
         'nilai_d' => $d,
+        'kategori' => $value['kategori'],
         'gambar' => $value['gambar'],
         'biaya_alt' => $value['biaya_alt'],
         'fasilitas_alt' => $value['fasilitas_alt'],
