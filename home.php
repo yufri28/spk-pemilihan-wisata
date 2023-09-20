@@ -39,7 +39,7 @@ else{
 <html>
 
 <head>
-    <title>SPK Beasiswa</title>
+    <title>SPK Pemilihan Wisata</title>
     <style>
     .navbar-transparent {
         background-color: hsl(0, 0%, 96%);
@@ -157,7 +157,7 @@ else{
                         <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
                             <?php foreach ($tempat_wisata_alam as $key => $wisata):?>
                             <div class="col-lg-4 mt-1 content2">
-                                <div class="card">
+                                <div class="card shadow-sm">
                                     <img style="height: 200px;"
                                         src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':"./user_area/gambar/".$wisata['gambar'];?>"
                                         class="card-img-top" alt="...">
@@ -187,7 +187,7 @@ else{
                         <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
                             <?php foreach ($tempat_wisata_budaya as $key => $wisata):?>
                             <div class="col-lg-4 mt-1 content">
-                                <div class="card">
+                                <div class="card shadow-sm">
                                     <img style="height: 200px;"
                                         src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':"./user_area/gambar/".$wisata['gambar'];?>"
                                         class="
@@ -218,7 +218,7 @@ else{
                         <div class="row list-wisata d-flex justify-content-center mt-2 col-lg-12 col-md-12">
                             <?php foreach ($tempat_wisata_buatan as $key => $wisata):?>
                             <div class="col-lg-4 mt-1 content1">
-                                <div class="card">
+                                <div class="card shadow-sm">
                                     <img style="height: 200px;"
                                         src="<?= $wisata['gambar'] == '-'? './assets/images/no-img.png':"./user_area/gambar/".$wisata['gambar'];?>"
                                         class="

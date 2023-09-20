@@ -79,7 +79,7 @@ include_once './user_area/hitung.php';
 <html>
 
 <head>
-    <title>SPK Beasiswa</title>
+    <title>SPK Pemilihan Wisata</title>
     <style>
     .navbar-transparent {
         background-color: hsl(0, 0%, 96%);

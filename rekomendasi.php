@@ -79,7 +79,7 @@ include_once './user_area/hitung.php';
 <html>
 
 <head>
-    <title>SPK Beasiswa</title>
+    <title>SPK Pemilihan Wisata</title>
     <style>
     .navbar-transparent {
         background-color: hsl(0, 0%, 96%);
@@ -131,7 +131,7 @@ include_once './user_area/hitung.php';
 
     <section class="">
         <!-- Section: Design Block -->
-        <nav class="navbar fixed-top navbar-transparent navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar fixed-top navbar-transparent shadow-sm navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand fw-bolder" href="#">SPK Wisata</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -164,12 +164,12 @@ include_once './user_area/hitung.php';
         </nav>
         <hr>
         <hr class="navbar-transparent">
-        <div class="container mt-5 pt-3" style="font-family: 'Prompt', sans-serif">
+        <div class="container mt-5 pt-3" style="font-family: 'Prompt', sans-serif;">
             <div class="row">
                 <!-- <div class="d-md-flex"> -->
                 <div class="col-md-4 mt-3 mb-4">
-                    <div class="card">
-                        <div class="card-header">
+                    <div class="card shadow-lg">
+                        <div class="card-header" style="background-color:#62B6B7">
                             <h5 class="text-center pt-2 col-12">
                                 Masukan Prioritas
                             </h5>
@@ -246,24 +246,24 @@ include_once './user_area/hitung.php';
                     </div>
                 </div>
                 <div class="col-md-8 mt-3 mb-3">
-                    <div class="card">
-                        <div class="card-header">
+                    <div class="card shadow-lg">
+                        <div class="card-header" style="background-color:#62B6B7">
                             <h5 class="text-start">DAFTAR WISATA</h5>
                             <hr>
-                            <div class="d-flex justify-content-end">
-                                <!-- <div class="form-group me-1">
-                                    <input type="text" class="form-control form-control-sm" id="filterInput"
-                                        style="border-radius:3em; border: 1px solid gray;" placeholder="Cari wisata...">
-                                </div> -->
-                                <div class="form-group">
-                                    <select id="filterSelect" style="border-radius:3em; border: 1px solid gray;"
-                                        class="form-control form-control-sm">
-                                        <option value="">-- Pilih Jenis Wisata --</option>
-                                        <option value="Alam">Alam</option>
-                                        <option value="Budaya">Budaya</option>
-                                        <option value="Buatan">Buatan</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <!-- <div class="form-group me-1">
+                                <input type="text" class="form-control form-control-sm" id="filterInput"
+                                    style="border-radius:3em; border: 1px solid gray;" placeholder="Cari wisata...">
+                            </div> -->
+                            <div class="form-group mt-3 me-5">
+                                <select id="filterSelect" style="border-radius:3em; border: 1px solid gray;"
+                                    class="form-control form-control-sm">
+                                    <option value="">-- Pilih Jenis Wisata --</option>
+                                    <option value="Alam">Alam</option>
+                                    <option value="Budaya">Budaya</option>
+                                    <option value="Buatan">Buatan</option>
+                                </select>
                             </div>
                         </div>
                         <div class="card-body">
@@ -311,8 +311,14 @@ include_once './user_area/hitung.php';
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <button type="button" class="btn col-lg-12 btn-sm btn-primary"
-                                                data-toggle="collapse" data-target="#detail<?= $key; ?>">Detail</button>
+                                            <div class="d-flex justify-content-center">
+                                                <button type="button" class="btn col-lg-6 me-1 btn-sm btn-primary"
+                                                    data-toggle="collapse"
+                                                    data-target="#detail<?= $key; ?>">Detail</button>
+                                                <a target="_blank"
+                                                    href="https://www.google.com/maps/dir/?api=1&destination=<?=$value['lat'];?>,<?=$value['long'];?>"
+                                                    class="btn col-lg-6 btn-sm btn-success">Maps</a>
+                                            </div>
                                         </div>
                                     </div>
                                     <?php endforeach;?>

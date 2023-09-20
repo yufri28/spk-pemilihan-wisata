@@ -24,7 +24,7 @@ else{
 <html>
 
 <head>
-    <title>SPK Beasiswa</title>
+    <title>SPK Pemilihan Wisata</title>
     <style>
     .navbar-transparent {
         background-color: hsl(0, 0%, 96%);

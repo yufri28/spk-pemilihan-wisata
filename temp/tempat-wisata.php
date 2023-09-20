@@ -15,7 +15,7 @@ $tempat_wisata_alam = $koneksi->query("SELECT * FROM alternatif WHERE kategori='
 <html>
 
 <head>
-    <title>SPK Beasiswa</title>
+    <title>SPK Pemilihan Wisata</title>
     <style>
     .navbar-transparent {
         background-color: hsl(0, 0%, 96%);
