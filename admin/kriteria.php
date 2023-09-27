@@ -57,11 +57,11 @@ Swal.fire({
 <div class="container pt-5" style="font-family: 'Prompt', sans-serif; margin-bottom:130px;">
     <div class="row">
         <div class="d-xxl-flex">
-            <?php if(mysqli_num_rows($data_Kriteria) < 4) :?>
+            <?php if(mysqli_num_rows($data_Kriteria) < 5) :?>
             <div class="col-xxl-3 mb-xxl-3 mt-5">
                 <div class="card">
                     <div class="card-header bg-primary">
-                        <h5 class="text-center pt-2 col-12">
+                        <h5 class="text-center text-white pt-2 col-12">
                             Tambah Data Kriteria
                         </h5>
                     </div>
@@ -85,7 +85,8 @@ Swal.fire({
                 </div>
             </div>
             <?php endif;?>
-            <div class="<?= mysqli_num_rows($data_Kriteria) < 4 ? "":"col-xxl-12 ms-xxl-2 mb-5"; ?> mt-5">
+            <div
+                class="<?= mysqli_num_rows($data_Kriteria) < 5 ? "col-xxl-9 ms-xxl-2":"col-xxl-12 ms-xxl-2 mb-5"; ?> mt-5">
                 <div class="card">
                     <div class="card-header">DAFTAR KRITERIA</div>
                     <div class="card-body">
@@ -96,7 +97,7 @@ Swal.fire({
                                         <th scope="col">No</th>
                                         <th scope="col">Kode</th>
                                         <th scope="col">Nama</th>
-                                        <!-- <th scope="col">Aksi</th> -->
+                                        <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
@@ -106,16 +107,16 @@ Swal.fire({
                                         <th scope="row"><?=$key+1;?></th>
                                         <th scope="row"><?=$kriteria['id_kriteria'];?></th>
                                         <td><?=$kriteria['nama_kriteria'];?></td>
-                                        <!-- <td> -->
-                                        <!-- <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#edit<?=$kriteria['id_kriteria'];?>">
                                                 Edit
-                                            </button> -->
-                                        <!-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                            </button>
+                                            <!-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#hapus<?=$kriteria['id_kriteria'];?>">
                                                 Hapus
                                             </button> -->
-                                        <!-- </td> -->
+                                        </td>
                                     </tr>
                                     <?php endforeach;?>
                                 </tbody>
@@ -155,7 +156,7 @@ Swal.fire({
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                             <button type="submit" name="edit" class="btn btn-outline-primary">
                                 Simpan
                             </button>

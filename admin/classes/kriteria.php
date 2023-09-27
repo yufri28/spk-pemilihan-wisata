@@ -15,18 +15,22 @@ class Kriteria{
     }
     public function tambahKriteria($dataKriteria)
     {
-        $cek = $this->db->query("SELECT * FROM kriteria WHERE id_kriteria='".$dataKriteria['id_kriteria']."'");
-        if (mysqli_num_rows($cek) > 0) {
-            return $_SESSION['error'] = 'Kode Kriteria sudah ada!';
-        } else{
-            $stmtInsert = $this->db->prepare("INSERT INTO kriteria(id_kriteria,nama_kriteria) VALUES (?,?)");
-            $stmtInsert->bind_param("ss",$dataKriteria['id_kriteria'],$dataKriteria['nama_kriteria']);
-            $stmtInsert->execute();
-            if ($stmtInsert->affected_rows > 0) {
-                return $_SESSION['success'] = 'Data berhasil ditambahkan!';
+        if($this->count_kriterial() < 4){
+            $cek = $this->db->query("SELECT * FROM kriteria WHERE id_kriteria='".$dataKriteria['id_kriteria']."'");
+            if (mysqli_num_rows($cek) > 0) {
+                return $_SESSION['error'] = 'Kode Kriteria sudah ada!';
             } else{
-                return $_SESSION['error'] = 'Terjadi kesalahan dalam menyimpan data.';
+                $stmtInsert = $this->db->prepare("INSERT INTO kriteria(id_kriteria,nama_kriteria) VALUES (?,?)");
+                $stmtInsert->bind_param("ss",$dataKriteria['id_kriteria'],$dataKriteria['nama_kriteria']);
+                $stmtInsert->execute();
+                if ($stmtInsert->affected_rows > 0) {
+                    return $_SESSION['success'] = 'Data berhasil ditambahkan!';
+                } else{
+                    return $_SESSION['error'] = 'Terjadi kesalahan dalam menyimpan data.';
+                }
             }
+        }else{
+            return $_SESSION['error'] = 'Tidak bisa menambah kriteria lagi. Maksimal 4 kriteria.';
         }
         
         $stmtInsert->close();
@@ -56,6 +60,10 @@ class Kriteria{
         }
         $stmtDelete->close();
         
+    }
+    public function count_kriterial(){
+        $jumlahKriteria = $this->db->query("SELECT COUNT(*) AS jumlah_kriteria FROM kriteria")->fetch_assoc();
+        return $jumlahKriteria['jumlah_kriteria'];
     }
 }
 $Kriteria = new Kriteria();
