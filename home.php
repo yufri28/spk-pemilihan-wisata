@@ -133,7 +133,8 @@ else{
             <div class="container col-lg-12" style="margin-top: 10%;">
                 <div class="row gx-lg-10 text-center">
                     <div class="title">
-                        <h3>SISTEM PENDUKUNG KEPUTUSAN REKOMENDASI TEMPAT WISATA DI KABUPATEN TIMOR TENGAH SELATAN</h3>
+                        <h3>SISTEM PENDUKUNG KEPUTUSAN REKOMENDASI TEMPAT WISATA</h3>
+                        <h3>DI KABUPATEN TIMOR TENGAH SELATAN</h3>
                     </div>
                 </div>
                 <div class="search-box d-flex justify-content-center mt-5 col-lg-12">
