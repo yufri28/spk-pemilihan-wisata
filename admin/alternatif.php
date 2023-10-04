@@ -28,7 +28,7 @@ if(isset($_POST['simpan'])){
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] === UPLOAD_ERR_OK) {
         $namaFile = $_FILES['gambar']['name'];
         $lokasiSementara = $_FILES['gambar']['tmp_name'];
-        
+
         // Tentukan lokasi tujuan penyimpanan
         $targetDir = '../user_area/gambar/';
         $targetFilePath = $targetDir . $namaFile;
@@ -36,16 +36,23 @@ if(isset($_POST['simpan'])){
         // Cek apakah nama file sudah ada dalam direktori target
         if (file_exists($targetFilePath)) {
             $fileInfo = pathinfo($namaFile);
-            $baseName = $fileInfo['filename'];
+            $baseName = md5($fileInfo['filename'] . time()); // Tambahkan timestamp untuk memastikan keunikan
             $extension = $fileInfo['extension'];
             $counter = 1;
 
             // Loop hingga menemukan nama file yang unik
-            while (file_exists($targetFilePath)) {
-                $namaFile = $baseName . '_' . $counter . '.' . $extension;
-                $targetFilePath = $targetDir . $namaFile;
+            while (file_exists($targetDir . $baseName . '_' . $counter . '.' . $extension)) {
                 $counter++;
             }
+
+            $namaFile = $baseName . '_' . $counter . '.' . $extension;
+            $targetFilePath = $targetDir . $namaFile;
+        }else{
+            $fileInfo = pathinfo($namaFile);
+            $baseName = md5($fileInfo['filename'] . time()); // Tambahkan timestamp untuk memastikan keunikan
+            $extension = $fileInfo['extension'];
+            $namaFile = $baseName.'.' .$extension;
+            $targetFilePath = $targetDir . $namaFile;
         }
 
         // Pindahkan file gambar dari lokasi sementara ke lokasi tujuan
@@ -211,31 +218,31 @@ if(isset($_POST['edit'])){
         // Tentukan lokasi tujuan penyimpanan
         $targetDir = '../user_area/gambar/';
         $targetFilePath = $targetDir . $namaFile;
-
+        
         // Cek apakah nama file sudah ada dalam direktori target
         if (file_exists($targetFilePath)) {
             $fileInfo = pathinfo($namaFile);
-            $baseName = $fileInfo['filename'];
+            $baseName = md5($fileInfo['filename'] . time()); // Tambahkan timestamp untuk memastikan keunikan
             $extension = $fileInfo['extension'];
             $counter = 1;
-
+        
             // Loop hingga menemukan nama file yang unik
-            while (file_exists($targetFilePath)) {
-                $namaFile = $baseName . '_' . $counter . '.' . $extension;
-                $targetFilePath = $targetDir . $namaFile;
+            while (file_exists($targetDir . $baseName . '_' . $counter . '.' . $extension)) {
                 $counter++;
             }
+        
+            $namaFile = $baseName . '_' . $counter . '.' . $extension;
+            $targetFilePath = $targetDir . $namaFile;
+        }else{
+            $fileInfo = pathinfo($namaFile);
+            $baseName = md5($fileInfo['filename'] . time()); // Tambahkan timestamp untuk memastikan keunikan
+            $extension = $fileInfo['extension'];
+            $namaFile = $baseName .'.'. $extension;
+            $targetFilePath = $targetDir . $namaFile;
         }
-
+        
         // Pindahkan file gambar dari lokasi sementara ke lokasi tujuan
         if (move_uploaded_file($lokasiSementara, $targetFilePath)) {
-            if (isset($_POST["gambar_lama"])) {
-                $fileLama = $_POST["gambar_lama"];
-                if (file_exists($targetDir . $fileLama)) {
-                    unlink($targetDir . $fileLama);
-                }
-            }
-            $uploadedFiles['gambar_lama'] = $namaFile;
             $id_alternatif = htmlspecialchars($_POST['id_alternatif']);
             $namaAlternatif = htmlspecialchars($_POST['nama_alternatif']);
             $latitude = htmlspecialchars($_POST['latitude']);
@@ -244,6 +251,14 @@ if(isset($_POST['edit'])){
             $rating = htmlspecialchars($_POST['rating']);
             $kategori = htmlspecialchars($_POST['kategori']);
             
+            // Hapus gambar lama jika ada
+            if (isset($_POST["gambar_lama"])) {
+                $fileLama = $_POST["gambar_lama"];
+                if (file_exists($targetDir . $fileLama)) {
+                    unlink($targetDir . $fileLama);
+                }
+            }
+
            // biaya
            $biaya = htmlspecialchars($_POST['biaya']);
            foreach ($dataSubBiaya as $key => $sub) {
@@ -517,6 +532,11 @@ if(isset($_POST['edit'])){
 if(isset($_POST['hapus'])){
     $idAlternatif = htmlspecialchars($_POST['id_alternatif']);
     $getDataAlternatif->hapusAlternatif($idAlternatif);
+    $fileLama = htmlspecialchars($_POST["gambar_lama"]);
+    $targetDir = '../user_area/gambar/';
+    if (file_exists($targetDir . $fileLama)) {
+        unlink($targetDir . $fileLama);
+    }
 }
 
 $getSubBiaya = $getDataAlternatif->getSubBiaya();
@@ -876,6 +896,7 @@ Swal.fire({
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <input type="hidden" name="id_alternatif" value="<?=$alternatif['id_alternatif'];?>">
+                <input type="hidden" name="gambar_lama" value="<?=$alternatif['gambar'];?>">
                 <div class="modal-body">
                     <p>Anda yakin ingin menghapus alternatif <strong>
                             <?=$alternatif['nama_alternatif'];?></strong> ?</p>
