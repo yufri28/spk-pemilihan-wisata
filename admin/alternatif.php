@@ -71,23 +71,23 @@ if(isset($_POST['simpan'])){
             // biaya
             $biaya = htmlspecialchars($_POST['biaya']);
             foreach ($dataSubBiaya as $key => $sub) {
-                if($sub['bobot_sub_kriteria'] == 5 && ($biaya >= 0 || $biaya <=10000))
+                if($sub['bobot_sub_kriteria'] == 5 && ($biaya >= 0 || $biaya <= 3000))
                 {
                     $biayaId = $sub['id_sub_kriteria'];
                 }
-                else if($sub['bobot_sub_kriteria'] == 4 && ($biaya > 10000 || $biaya <= 25000))
+                else if($sub['bobot_sub_kriteria'] == 4 && ($biaya > 3000 || $biaya <= 6000))
                 {
                     $biayaId = $sub['id_sub_kriteria'];
                 }
-                else if($sub['bobot_sub_kriteria'] == 3 && ($biaya > 25000 || $biaya <= 50000))
+                else if($sub['bobot_sub_kriteria'] == 3 && ($biaya > 6000 || $biaya <= 9000))
                 {
                     $biayaId = $sub['id_sub_kriteria'];
                 }
-                else if($sub['bobot_sub_kriteria'] == 2 && ($biaya > 50000 || $biaya <= 100000))
+                else if($sub['bobot_sub_kriteria'] == 2 && ($biaya > 9000 || $biaya <= 12000))
                 {
                     $biayaId = $sub['id_sub_kriteria'];
                 }
-                else if($sub['bobot_sub_kriteria'] == 1 && ($biaya > 100000))
+                else if($sub['bobot_sub_kriteria'] == 1 && ($biaya > 12000))
                 {
                     $biayaId = $sub['id_sub_kriteria'];
                 }
@@ -96,14 +96,19 @@ if(isset($_POST['simpan'])){
             // fasilitas
             $fasilitas = htmlspecialchars($_POST['fasilitas']);
             $explod = explode(", ",$fasilitas);
-            foreach ($explod as $key => $value) {
-                if($key == count($explod)-1){
-                    $teks .= "dan ".$value;
-                }else if($key == count($explod)-2){
-                    $teks .= $value." ";
-                }else{
-                    $teks .= $value.", ";
+            $count = count($explod);
+            if($count > 1){
+                foreach ($explod as $key => $value) {
+                    if($key == count($explod)-1){
+                        $teks .= "dan ".$value;
+                    }else if($key == count($explod)-2){
+                        $teks .= $value." ";
+                    }else{
+                        $teks .= $value.", ";
+                    }
                 }
+            }else{
+                $teks = $fasilitas;
             }
             foreach ($dataSubFas as $key => $sub) {
                 if($sub['bobot_sub_kriteria'] == 5 && count($explod) == 5)
@@ -132,23 +137,23 @@ if(isset($_POST['simpan'])){
             // jarak
             $jarak = htmlspecialchars($_POST['jarak']); 
             foreach ($dataSubJarak as $key => $sub) {
-                if($sub['bobot_sub_kriteria'] == 5 && ($jarak >= 0 || $jarak <=10000))
+                if($sub['bobot_sub_kriteria'] == 5 && ($jarak >= 0 || $jarak <= 30000))
                 {
                     $jarakId = $sub['id_sub_kriteria'];
                 }
-                else if($sub['bobot_sub_kriteria'] == 4 && ($jarak > 10000 || $jarak <= 25000))
+                else if($sub['bobot_sub_kriteria'] == 4 && ($jarak > 30000 || $jarak <= 60000))
                 {
                     $jarakId = $sub['id_sub_kriteria'];
                 }
-                else if($sub['bobot_sub_kriteria'] == 3 && ($jarak > 25000 || $jarak <= 50000))
+                else if($sub['bobot_sub_kriteria'] == 3 && ($jarak > 60000 || $jarak <= 90000))
                 {
                     $jarakId = $sub['id_sub_kriteria'];
                 }
-                else if($sub['bobot_sub_kriteria'] == 2 && ($jarak > 50000 || $jarak <= 100000))
+                else if($sub['bobot_sub_kriteria'] == 2 && ($jarak > 90000 || $jarak <= 120000))
                 {
                     $jarakId = $sub['id_sub_kriteria'];
                 }
-                else if($sub['bobot_sub_kriteria'] == 1 && ($jarak > 100000))
+                else if($sub['bobot_sub_kriteria'] == 1 && ($jarak > 120000))
                 {
                     $jarakId = $sub['id_sub_kriteria'];
                 }
@@ -262,23 +267,23 @@ if(isset($_POST['edit'])){
            // biaya
            $biaya = htmlspecialchars($_POST['biaya']);
            foreach ($dataSubBiaya as $key => $sub) {
-               if($sub['bobot_sub_kriteria'] == 5 && ($biaya >= 0 || $biaya <=10000))
+               if($sub['bobot_sub_kriteria'] == 5 && ($biaya >= 0 || $biaya <=3000))
                {
                    $biayaId = $sub['id_sub_kriteria'];
                }
-               else if($sub['bobot_sub_kriteria'] == 4 && ($biaya > 10000 || $biaya <= 25000))
+               else if($sub['bobot_sub_kriteria'] == 4 && ($biaya > 3000 || $biaya <= 6000))
                {
                    $biayaId = $sub['id_sub_kriteria'];
                }
-               else if($sub['bobot_sub_kriteria'] == 3 && ($biaya > 25000 || $biaya <= 50000))
+               else if($sub['bobot_sub_kriteria'] == 3 && ($biaya > 6000 || $biaya <= 9000))
                {
                    $biayaId = $sub['id_sub_kriteria'];
                }
-               else if($sub['bobot_sub_kriteria'] == 2 && ($biaya > 50000 || $biaya <= 100000))
+               else if($sub['bobot_sub_kriteria'] == 2 && ($biaya > 9000 || $biaya <= 12000))
                {
                    $biayaId = $sub['id_sub_kriteria'];
                }
-               else if($sub['bobot_sub_kriteria'] == 1 && ($biaya > 100000))
+               else if($sub['bobot_sub_kriteria'] == 1 && ($biaya > 12000))
                {
                    $biayaId = $sub['id_sub_kriteria'];
                }
@@ -287,15 +292,21 @@ if(isset($_POST['edit'])){
            // fasilitas
            $fasilitas = htmlspecialchars($_POST['fasilitas']);
            $explod = explode(", ",$fasilitas);
-           foreach ($explod as $key => $value) {
-               if($key == count($explod)-1){
-                   $teks .= "dan ".$value;
-               }else if($key == count($explod)-2){
-                   $teks .= $value." ";
-               }else{
-                   $teks .= $value.", ";
-               }
-           }
+           $count = count($explod);
+            if($count > 1){
+                foreach ($explod as $key => $value) {
+                    if($key == count($explod)-1){
+                        $teks .= "dan ".$value;
+                    }else if($key == count($explod)-2){
+                        $teks .= $value." ";
+                    }else{
+                        $teks .= $value.", ";
+                    }
+                }
+            }else{
+                $teks = $fasilitas;
+            }
+          
            foreach ($dataSubFas as $key => $sub) {
                if($sub['bobot_sub_kriteria'] == 5 && count($explod) == 5)
                {
@@ -323,23 +334,23 @@ if(isset($_POST['edit'])){
            // jarak
            $jarak = htmlspecialchars($_POST['jarak']); 
            foreach ($dataSubJarak as $key => $sub) {
-               if($sub['bobot_sub_kriteria'] == 5 && ($jarak >= 0 || $jarak <=10000))
+               if($sub['bobot_sub_kriteria'] == 5 && ($jarak >= 0 || $jarak <= 30000))
                {
                    $jarakId = $sub['id_sub_kriteria'];
                }
-               else if($sub['bobot_sub_kriteria'] == 4 && ($jarak > 10000 || $jarak <= 25000))
+               else if($sub['bobot_sub_kriteria'] == 4 && ($jarak > 30000 || $jarak <= 60000))
                {
                    $jarakId = $sub['id_sub_kriteria'];
                }
-               else if($sub['bobot_sub_kriteria'] == 3 && ($jarak > 25000 || $jarak <= 50000))
+               else if($sub['bobot_sub_kriteria'] == 3 && ($jarak > 60000 || $jarak <= 90000))
                {
                    $jarakId = $sub['id_sub_kriteria'];
                }
-               else if($sub['bobot_sub_kriteria'] == 2 && ($jarak > 50000 || $jarak <= 100000))
+               else if($sub['bobot_sub_kriteria'] == 2 && ($jarak > 90000 || $jarak <= 120000))
                {
                    $jarakId = $sub['id_sub_kriteria'];
                }
-               else if($sub['bobot_sub_kriteria'] == 1 && ($jarak > 100000))
+               else if($sub['bobot_sub_kriteria'] == 1 && ($jarak > 120000))
                {
                    $jarakId = $sub['id_sub_kriteria'];
                }
@@ -402,40 +413,45 @@ if(isset($_POST['edit'])){
          // biaya
          $biaya = htmlspecialchars($_POST['biaya']);
          foreach ($dataSubBiaya as $key => $sub) {
-             if($sub['bobot_sub_kriteria'] == 5 && ($biaya >= 0 || $biaya <=10000))
-             {
-                 $biayaId = $sub['id_sub_kriteria'];
-             }
-             else if($sub['bobot_sub_kriteria'] == 4 && ($biaya > 10000 || $biaya <= 25000))
-             {
-                 $biayaId = $sub['id_sub_kriteria'];
-             }
-             else if($sub['bobot_sub_kriteria'] == 3 && ($biaya > 25000 || $biaya <= 50000))
-             {
-                 $biayaId = $sub['id_sub_kriteria'];
-             }
-             else if($sub['bobot_sub_kriteria'] == 2 && ($biaya > 50000 || $biaya <= 100000))
-             {
-                 $biayaId = $sub['id_sub_kriteria'];
-             }
-             else if($sub['bobot_sub_kriteria'] == 1 && ($biaya > 100000))
-             {
-                 $biayaId = $sub['id_sub_kriteria'];
-             }
+            if($sub['bobot_sub_kriteria'] == 5 && ($biaya >= 0 || $biaya <=3000))
+               {
+                   $biayaId = $sub['id_sub_kriteria'];
+               }
+               else if($sub['bobot_sub_kriteria'] == 4 && ($biaya > 3000 || $biaya <= 6000))
+               {
+                   $biayaId = $sub['id_sub_kriteria'];
+               }
+               else if($sub['bobot_sub_kriteria'] == 3 && ($biaya > 6000 || $biaya <= 9000))
+               {
+                   $biayaId = $sub['id_sub_kriteria'];
+               }
+               else if($sub['bobot_sub_kriteria'] == 2 && ($biaya > 9000 || $biaya <= 12000))
+               {
+                   $biayaId = $sub['id_sub_kriteria'];
+               }
+               else if($sub['bobot_sub_kriteria'] == 1 && ($biaya > 12000))
+               {
+                   $biayaId = $sub['id_sub_kriteria'];
+               }
          }
 
-         // fasilitas
-         $fasilitas = htmlspecialchars($_POST['fasilitas']);
-         $explod = explode(", ",$fasilitas);
-         foreach ($explod as $key => $value) {
-             if($key == count($explod)-1){
-                 $teks .= "dan ".$value;
-             }else if($key == count($explod)-2){
-                 $teks .= $value." ";
-             }else{
-                 $teks .= $value.", ";
-             }
-         }
+        // fasilitas
+        $fasilitas = htmlspecialchars($_POST['fasilitas']);
+        $explod = explode(", ",$fasilitas);
+        $count = count($explod);
+        if($count > 1){
+            foreach ($explod as $key => $value) {
+                if($key == count($explod)-1){
+                    $teks .= "dan ".$value;
+                }else if($key == count($explod)-2){
+                    $teks .= $value." ";
+                }else{
+                    $teks .= $value.", ";
+                }
+            }
+        }else{
+            $teks = $fasilitas;
+        }
          foreach ($dataSubFas as $key => $sub) {
              if($sub['bobot_sub_kriteria'] == 5 && count($explod) == 5)
              {
@@ -463,26 +479,26 @@ if(isset($_POST['edit'])){
          // jarak
          $jarak = htmlspecialchars($_POST['jarak']); 
          foreach ($dataSubJarak as $key => $sub) {
-             if($sub['bobot_sub_kriteria'] == 5 && ($jarak >= 0 || $jarak <=10000))
-             {
-                 $jarakId = $sub['id_sub_kriteria'];
-             }
-             else if($sub['bobot_sub_kriteria'] == 4 && ($jarak > 10000 || $jarak <= 25000))
-             {
-                 $jarakId = $sub['id_sub_kriteria'];
-             }
-             else if($sub['bobot_sub_kriteria'] == 3 && ($jarak > 25000 || $jarak <= 50000))
-             {
-                 $jarakId = $sub['id_sub_kriteria'];
-             }
-             else if($sub['bobot_sub_kriteria'] == 2 && ($jarak > 50000 || $jarak <= 100000))
-             {
-                 $jarakId = $sub['id_sub_kriteria'];
-             }
-             else if($sub['bobot_sub_kriteria'] == 1 && ($jarak > 100000))
-             {
-                 $jarakId = $sub['id_sub_kriteria'];
-             }
+            if($sub['bobot_sub_kriteria'] == 5 && ($jarak >= 0 || $jarak <= 30000))
+               {
+                   $jarakId = $sub['id_sub_kriteria'];
+               }
+               else if($sub['bobot_sub_kriteria'] == 4 && ($jarak > 30000 || $jarak <= 60000))
+               {
+                   $jarakId = $sub['id_sub_kriteria'];
+               }
+               else if($sub['bobot_sub_kriteria'] == 3 && ($jarak > 60000 || $jarak <= 90000))
+               {
+                   $jarakId = $sub['id_sub_kriteria'];
+               }
+               else if($sub['bobot_sub_kriteria'] == 2 && ($jarak > 90000 || $jarak <= 120000))
+               {
+                   $jarakId = $sub['id_sub_kriteria'];
+               }
+               else if($sub['bobot_sub_kriteria'] == 1 && ($jarak > 120000))
+               {
+                   $jarakId = $sub['id_sub_kriteria'];
+               }
          }
 
          // Jumlah pengunjung

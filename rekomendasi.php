@@ -36,10 +36,10 @@ if(isset($_POST['simpan'])){
         $prioritas1,$prioritas2,$prioritas3,$prioritas4
     ];
     $dataBobotKriteria = [
-        $prioritas1 => 0.25,
-        $prioritas2 => 0.2,
-        $prioritas3 => 0.15,
-        $prioritas4 => 0.2
+        $prioritas1 => 0.4,
+        $prioritas2 => 0.3,
+        $prioritas3 => 0.2,
+        $prioritas4 => 0.1
     ];
 
   
@@ -307,6 +307,15 @@ include_once './user_area/hitung.php';
                                                             <td>:</td>
                                                             <td><small>
                                                                     <?= $value['jumlah_peng_alt']; ?> Orang</small></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nilai Akhir</td>
+                                                            <td>:</td>
+                                                            <?php if($post == true):;?>
+                                                            <td><small><?= $value['nilai_akhir']; ?></small></td>
+                                                            <?php else:?>
+                                                            <td><small>0</small></td>
+                                                            <?php endif;?>
                                                         </tr>
                                                     </tbody>
                                                 </table>
