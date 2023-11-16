@@ -68,7 +68,7 @@ $dataKriteria = [
 $alternatif_kriteria = $getDataAlternatif->alternatif_kriteria();
 
 
-include_once './user_area/hitung.php';
+include_once './user_area/hitung2.php';
 ?>
 
 <!DOCTYPE html>
@@ -170,7 +170,7 @@ include_once './user_area/hitung.php';
                                 Masukan Prioritas
                             </h5>
                         </div>
-                        <form method="post" action="rekomendasi2.php">
+                        <form method="post" action="rekomendasi.php">
                             <div class="card-body">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     Apakah anda suka tempat yang ramai?
@@ -191,7 +191,7 @@ include_once './user_area/hitung.php';
                                 </div>
                                 <div class="mb-3 mt-3">
                                     <label for="prioritas_1" class="form-label">Prioritas 1</label>
-                                    <select class="form-control" required id="prioritas_1" name="prioritas_1"
+                                    <select class="form-control" id="prioritas_1" required name="prioritas_1"
                                         aria-label="Default select example">
                                         <option value="">-- Pilih prioritas 1 --</option>
                                         <?php foreach($dataKriteria as $kriteria):?>
