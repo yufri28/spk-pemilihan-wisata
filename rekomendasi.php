@@ -5,10 +5,10 @@ require_once './user_area/classes/alternatif.php';
 
 $post = false;
 
-$prioritas1 = "";
-$prioritas2 = "";
-$prioritas3 = "";
-$prioritas4 = "";
+$biaya_masuk = 0;
+$fasilitas = 0;
+$jarak_kota = 0;
+$jumlah_pengunjung = 0;
 $jenis_c4 = "";
 $jenis_kriteria4 = "";
 
@@ -19,11 +19,11 @@ $C4 = 0.1;
 $dataBobotKriteria = array();
 $dataTampung = array();
 
-if(isset($_POST['simpan'])){
-    $prioritas1 = $_POST['prioritas_1'];
-    $prioritas2 = $_POST['prioritas_2'];
-    $prioritas3 = $_POST['prioritas_3'];
-    $prioritas4 = $_POST['prioritas_4'];
+if(isset($_POST['t_bobot_kriteria'])){
+    $biaya_masuk = $_POST['t_bobot_kriteria'][0];
+    $fasilitas = $_POST['t_bobot_kriteria'][1];
+    $jarak_kota = $_POST['t_bobot_kriteria'][2];
+    $jumlah_pengunjung = $_POST['t_bobot_kriteria'][3];
     $jenis_c4 = $_POST['jenis_c4'];
 
     if($jenis_c4 == 1)
@@ -33,32 +33,33 @@ if(isset($_POST['simpan'])){
         $jenis_kriteria4 = "cost";
     }
 
-    $dataTampung = [
-        $prioritas1,$prioritas2,$prioritas3,$prioritas4
-    ];
-    $dataBobotKriteria = [
-        $prioritas1 => 0.45,
-        $prioritas2 => 0.3,
-        $prioritas3 => 0.15,
-        $prioritas4 => 0.1
-    ];
-  
-    foreach ($dataBobotKriteria as $key => $value) {
-       switch ($key) {
-        case "Biaya masuk":
-            $C1 = $value;
-            break;
-        case "Fasilitas":
-            $C2 = $value;
-            break;
-        case "Jarak dari pusat kota":
-            $C3 = $value;
-            break;
-        case "Jumlah pengunjung":
-            $C4 = $value;
-            break;
-       }
+    $C1 = $biaya_masuk/100;
+    $C2 = $fasilitas/100;
+    $C3 = $jarak_kota/100;
+    $C4 = $jumlah_pengunjung/100;
+
+    $post = true;
+    
+}
+if(isset($_POST['e_bobot_kriteria'])){
+    $biaya_masuk = $_POST['e_bobot_kriteria'][0];
+    $fasilitas = $_POST['e_bobot_kriteria'][1];
+    $jarak_kota = $_POST['e_bobot_kriteria'][2];
+    $jumlah_pengunjung = $_POST['e_bobot_kriteria'][3];
+    $jenis_c4 = $_POST['jenis_c4'];
+
+    if($jenis_c4 == 1)
+    {
+        $jenis_kriteria4 = "benefit";
+    }else if($jenis_c4 == 0){
+        $jenis_kriteria4 = "cost";
     }
+
+    $C1 = $biaya_masuk/100;
+    $C2 = $fasilitas/100;
+    $C3 = $jarak_kota/100;
+    $C4 = $jumlah_pengunjung/100;
+
     $post = true;
     
 }
@@ -76,6 +77,7 @@ include_once './user_area/hitung.php';
 
 <head>
     <title>SPK Pemilihan Wisata</title>
+
     <style>
     .navbar-transparent {
         background-color: hsl(0, 0%, 96%);
@@ -99,6 +101,40 @@ include_once './user_area/hitung.php';
         border-radius: 0.3rem;
     }
     </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let button_like_link = document.getElementById('btn-like-link');
+
+        button_like_link.addEventListener('click', function() {
+            Swal.fire({
+                title: 'Panduan',
+                text: 'Masukan Bobot Kriteria Dimana Jumlah Keempat Bobot Adalah 100 dan Bobot Terbesar Menunjukan Kriteria Yang Diprioritaskan.',
+                icon: 'warning',
+                confirmButtonText: 'Paham'
+            });
+        });
+    });
+    </script>
+
+    <style>
+    .button-like-link {
+        background: none;
+        border: none;
+        color: blue;
+        /* Warna teks mirip tautan */
+        text-decoration: none;
+        /* Garis bawah mirip tautan */
+        cursor: pointer;
+        /* Jika ingin menyesuaikan tampilan saat digerakkan mouse */
+    }
+
+    .button-like-link:hover {
+        text-decoration: none;
+        /* Menghilangkan garis bawah saat digerakkan mouse */
+        /* Sesuaikan tampilan hover sesuai keinginan */
+    }
+    </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -114,6 +150,8 @@ include_once './user_area/hitung.php';
     <link href="./assets/DataTables/datatables.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
     #mapid,
     .teks {
@@ -121,6 +159,7 @@ include_once './user_area/hitung.php';
     }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -165,13 +204,70 @@ include_once './user_area/hitung.php';
                 <!-- <div class="d-md-flex"> -->
                 <div class="col-md-4 mt-3 mb-4">
                     <div class="card shadow-lg">
+                        <?php if($post == false):?>
                         <div class="card-header" style="background-color:#62B6B7">
                             <h5 class="text-center pt-2 col-12">
-                                Masukan Prioritas
+                                Masukan Bobot Kriteria
                             </h5>
                         </div>
-                        <form method="post" action="rekomendasi2.php">
+                        <form method="post" id="kriteriaForm" action="">
                             <div class="card-body">
+                                <div id="error-message" style="color: red; display: none;">
+                                    Total bobot kriteria harus sama dengan 100.
+                                </div>
+                                <button type="button" id="btn-like-link"
+                                    class="button-like-link col-lg-12 d-flex justify-content-end"><small
+                                        class="">Panduan?</small></button>
+
+                                <script>
+                                $(document).ready(function() {
+                                    let inputs = $('.bobot-kriteria');
+                                    let sisaBobot = 0;
+
+                                    inputs.on('input', function() {
+                                        let total = 0;
+                                        inputs.each(function() {
+                                            let nilaiInput = parseInt($(this).val()) || 0;
+                                            total += nilaiInput;
+                                        });
+
+                                        sisaBobot = 100 - total;
+                                        $('#error-message').text('Sisa Bobot: ' + sisaBobot);
+                                        if (sisaBobot !== 0) {
+                                            $('#error-message').css('display', 'block');
+                                        } else {
+                                            $('#error-message').css('display', 'none');
+                                        }
+                                    });
+                                });
+
+                                function validateTotal() {
+                                    let inputs = $('.bobot-kriteria');
+                                    let total = 0;
+
+                                    inputs.each(function() {
+                                        total += parseInt($(this).val()) || 0;
+                                    });
+
+                                    if (total !== 100) {
+                                        if (total < 100) {
+                                            $('#error-message').text(
+                                                'Total bobot kriteria tidak boleh kurang dari 100.');
+                                            $('#error-message').css('display', 'block');
+                                            return false;
+                                        } else if (total > 100) {
+                                            $('#error-message').text(
+                                                'Total bobot kriteria tidak boleh lebih dari 100.');
+                                            return false;
+                                            $('#error-message').css('display', 'block');
+                                        }
+                                        // return false;
+                                    } else {
+                                        $('#error-message').css('display', 'none');
+                                        return true;
+                                    }
+                                }
+                                </script>
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     Apakah anda suka tempat yang ramai?
                                 </label>
@@ -190,55 +286,138 @@ include_once './user_area/hitung.php';
                                     </label>
                                 </div>
                                 <div class="mb-3 mt-3">
-                                    <label for="prioritas_1" class="form-label">Prioritas 1</label>
-                                    <select class="form-control" required id="prioritas_1" name="prioritas_1"
-                                        aria-label="Default select example">
-                                        <option value="">-- Pilih prioritas 1 --</option>
-                                        <?php foreach($dataKriteria as $kriteria):?>
-                                        <option <?=$kriteria == $prioritas1 ? 'selected':'';?> value="<?=$kriteria;?>">
-                                            <?=$kriteria;?>
-                                        </option>
-                                        <?php endforeach;?>
-                                    </select>
+                                    <label for="bobot_kriteria" class="form-label">Biaya Masuk</label>
+                                    <input type="number" max="100" class="form-control bobot-kriteria"
+                                        name="t_bobot_kriteria[]">
                                 </div>
                                 <div class="mb-3 mt-3">
-                                    <label for="prioritas_2" class="form-label">Prioritas 2</label>
-                                    <select class="form-control" required id="prioritas_2" name="prioritas_2">
-                                        <option value="">-- Pilih prioritas 2 --</option>
-                                        <?php foreach($dataKriteria as $kriteria):?>
-                                        <option <?=$kriteria == $prioritas2 ? 'selected':'';?> value="<?=$kriteria;?>">
-                                            <?=$kriteria;?>
-                                        </option>
-                                        <?php endforeach;?>
-                                    </select>
+                                    <label for="bobot_kriteria" class="form-label">Fasilitas</label>
+                                    <input type="number" max="100" class="form-control bobot-kriteria"
+                                        name="t_bobot_kriteria[]">
                                 </div>
                                 <div class="mb-3 mt-3">
-                                    <label for="prioritas_3" class="form-label">Prioritas 3</label>
-                                    <select class="form-control" required id="prioritas_3" name="prioritas_3">
-                                        <option value="">-- Pilih prioritas 3 --</option>
-                                        <?php foreach($dataKriteria as $kriteria):?>
-                                        <option <?=$kriteria == $prioritas3 ? 'selected':'';?> value="<?=$kriteria;?>">
-                                            <?=$kriteria;?>
-                                        </option>
-                                        <?php endforeach;?>
-                                    </select>
+                                    <label for="bobot_kriteria" class="form-label">Jarak dari Pusat Kota</label>
+                                    <input type="number" max="100" class="form-control bobot-kriteria"
+                                        name="t_bobot_kriteria[]">
                                 </div>
                                 <div class="mb-3 mt-3">
-                                    <label for="prioritas_4" class="form-label">Prioritas 4</label>
-                                    <select class="form-control" required id="prioritas_4" name="prioritas_4">
-                                        <option value="">-- Pilih prioritas 4 --</option>
-                                        <?php foreach($dataKriteria as $kriteria):?>
-                                        <option <?= $kriteria == $prioritas4 ? 'selected':'';?> value="<?=$kriteria;?>">
-                                            <?=$kriteria;?>
-                                        </option>
-                                        <?php endforeach;?>
-                                    </select>
+                                    <label for="bobot_kriteria" max="100" class="form-label">Jumlah Pengunjung</label>
+                                    <input type="number" class="form-control bobot-kriteria" name="t_bobot_kriteria[]">
                                 </div>
-                                <button type="submit" name="simpan" class="btn col-12 btn-outline-success">
+                                <button type="submit" name="simpan" onclick="return validateTotal()"
+                                    class="btn col-12 btn-outline-success">
                                     Simpan
                                 </button>
                             </div>
                         </form>
+                        <?php endif;?>
+                        <?php if($post == true):?>
+                        <div class="card-header" style="background-color:#62B6B7">
+                            <h5 class="text-center pt-2 col-12">
+                                Edit Bobot Kriteria
+                            </h5>
+                        </div>
+                        <form method="post" id="editKriteriaForm" action="">
+                            <div class="card-body">
+                                <div id="error-message" style="color: red; display: none;">
+                                    Total bobot kriteria harus sama dengan 100.
+                                </div>
+                                <button type="button" id="btn-like-link"
+                                    class="button-like-link col-lg-12 d-flex justify-content-end"><small
+                                        class="">Panduan?</small></button>
+
+                                <script>
+                                $(document).ready(function() {
+                                    let inputs = $('.edit-bobot-kriteria');
+                                    let sisaBobot = 0;
+
+                                    inputs.on('input', function() {
+                                        let total = 0;
+                                        inputs.each(function() {
+                                            let nilaiInput = parseInt($(this).val()) || 0;
+                                            total += nilaiInput;
+                                        });
+
+                                        sisaBobot = 100 - total;
+                                        $('#error-message').text('Sisa Bobot: ' + sisaBobot);
+                                        if (sisaBobot !== 0) {
+                                            $('#error-message').css('display', 'block');
+                                        } else {
+                                            $('#error-message').css('display', 'none');
+                                        }
+                                    });
+                                });
+
+                                function validateTotal() {
+                                    let inputs = $('.edit-bobot-kriteria');
+                                    let total = 0;
+
+                                    inputs.each(function() {
+                                        total += parseInt($(this).val()) || 0;
+                                    });
+
+                                    if (total !== 100) {
+                                        if (total < 100) {
+                                            $('#error-message').text(
+                                                'Total bobot kriteria tidak boleh kurang dari 100.');
+                                            $('#error-message').css('display', 'block');
+                                            return false;
+                                        } else if (total > 100) {
+                                            $('#error-message').text(
+                                                'Total bobot kriteria tidak boleh lebih dari 100.');
+                                            return false;
+                                            $('#error-message').css('display', 'block');
+                                        }
+                                    } else {
+                                        $('#error-message').css('display', 'none');
+                                        return true;
+                                    }
+                                }
+                                </script>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Apakah anda suka tempat yang ramai?
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" <?=$jenis_c4 == 1 ? 'checked':'';?> required
+                                        type="radio" value="1" name="jenis_c4" id="jenis_c41">
+                                    <label class="form-check-label" for="jenis_c41">
+                                        Suka
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" required <?=$jenis_c4 == 0 ? 'checked':'';?>
+                                        type="radio" value="0" name="jenis_c4" id="jenis_c42">
+                                    <label class="form-check-label" for="jenis_c42">
+                                        Tidak suka
+                                    </label>
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <label for="bobot_kriteria" class="form-label">Biaya Masuk</label>
+                                    <input type="number" max="100" class="form-control edit-bobot-kriteria"
+                                        name="e_bobot_kriteria[]" value="<?=$biaya_masuk;?>">
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <label for="bobot_kriteria" class="form-label">Fasilitas</label>
+                                    <input type="number" max="100" class="form-control edit-bobot-kriteria"
+                                        name="e_bobot_kriteria[]" value="<?=$fasilitas;?>">
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <label for="bobot_kriteria" class="form-label">Jarak dari Pusat Kota</label>
+                                    <input type="number" max="100" class="form-control edit-bobot-kriteria"
+                                        name="e_bobot_kriteria[]" value="<?=$jarak_kota;?>">
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <label for="bobot_kriteria" class="form-label">Jumlah Pengunjung</label>
+                                    <input type="number" max="100" class="form-control edit-bobot-kriteria"
+                                        name="e_bobot_kriteria[]" value="<?=$jumlah_pengunjung;?>">
+                                </div>
+                                <button type="submit" name="simpan" onclick="return validateTotal()"
+                                    class="btn col-12 btn-outline-success">
+                                    Simpan
+                                </button>
+                            </div>
+                        </form>
+                        <?php endif;?>
                     </div>
                 </div>
                 <div class="col-md-8 mt-3 mb-3">
