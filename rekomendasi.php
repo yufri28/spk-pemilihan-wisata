@@ -40,7 +40,17 @@ if(isset($_POST['t_bobot_kriteria'])){
 
     $post = true;
     
+    echo $C1;
+    echo $C2;
+    echo $C3;
+    echo $C4;
+
+    echo $C1+$C2+$C3+$C4;
+    die;
 }
+
+
+
 if(isset($_POST['e_bobot_kriteria'])){
     $biaya_masuk = $_POST['e_bobot_kriteria'][0];
     $fasilitas = $_POST['e_bobot_kriteria'][1];
