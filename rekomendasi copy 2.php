@@ -11,7 +11,6 @@ $jarak_kota = 0;
 $jumlah_pengunjung = 0;
 $jenis_c4 = "";
 $jenis_kriteria4 = "";
-$totalBobot = 0;
 
 $C1 = 0.1;
 $C2 = 0.1;
@@ -34,14 +33,20 @@ if(isset($_POST['t_bobot_kriteria'])){
         $jenis_kriteria4 = "cost";
     }
 
-    $totalBobot = $biaya_masuk + $fasilitas + $jarak_kota + $jumlah_pengunjung;
-
-    $C1 = $biaya_masuk/$totalBobot;
-    $C2 = $fasilitas/$totalBobot;
-    $C3 = $jarak_kota/$totalBobot;
-    $C4 = $jumlah_pengunjung/$totalBobot;
+    $C1 = $biaya_masuk/100;
+    $C2 = $fasilitas/100;
+    $C3 = $jarak_kota/100;
+    $C4 = $jumlah_pengunjung/100;
 
     $post = true;
+    
+    echo $C1;
+    echo $C2;
+    echo $C3;
+    echo $C4;
+
+    echo $C1+$C2+$C3+$C4;
+    die;
 }
 
 
@@ -60,12 +65,10 @@ if(isset($_POST['e_bobot_kriteria'])){
         $jenis_kriteria4 = "cost";
     }
 
-    $totalBobot = $biaya_masuk + $fasilitas + $jarak_kota + $jumlah_pengunjung;
-
-    $C1 = $biaya_masuk/$totalBobot;
-    $C2 = $fasilitas/$totalBobot;
-    $C3 = $jarak_kota/$totalBobot;
-    $C4 = $jumlah_pengunjung/$totalBobot;
+    $C1 = $biaya_masuk/100;
+    $C2 = $fasilitas/100;
+    $C3 = $jarak_kota/100;
+    $C4 = $jumlah_pengunjung/100;
 
     $post = true;
     
@@ -116,7 +119,7 @@ include_once './user_area/hitung.php';
         button_like_link.addEventListener('click', function() {
             Swal.fire({
                 title: 'Panduan',
-                text: 'Masukan Range Bobot Kriteria Dimana Range Bobot Setiap Kriteria Adalah 0 Sampai 100 dan Bobot Terbesar Menunjukan Kriteria Yang Diprioritaskan.',
+                text: 'Masukan Bobot Kriteria Dimana Jumlah Keempat Bobot Adalah 100 dan Bobot Terbesar Menunjukan Kriteria Yang Diprioritaskan.',
                 icon: 'warning',
                 confirmButtonText: 'Paham'
             });
@@ -227,23 +230,52 @@ include_once './user_area/hitung.php';
                                         class="">Panduan?</small></button>
 
                                 <script>
-                                function updateWeight1(value) {
-                                    document.getElementById('weightDisplay1').textContent = 'Bobot Biaya Masuk: ' +
-                                        value;
-                                }
+                                $(document).ready(function() {
+                                    let inputs = $('.bobot-kriteria');
+                                    let sisaBobot = 0;
 
-                                function updateWeight2(value) {
-                                    document.getElementById('weightDisplay2').textContent = 'Bobot Fasilitas: ' + value;
-                                }
+                                    inputs.on('input', function() {
+                                        let total = 0;
+                                        inputs.each(function() {
+                                            let nilaiInput = parseInt($(this).val()) || 0;
+                                            total += nilaiInput;
+                                        });
 
-                                function updateWeight3(value) {
-                                    document.getElementById('weightDisplay3').textContent =
-                                        'Bobot Jarak dari Pusat Kota: ' + value;
-                                }
+                                        sisaBobot = 100 - total;
+                                        $('#error-message').text('Sisa Bobot: ' + sisaBobot);
+                                        if (sisaBobot !== 0) {
+                                            $('#error-message').css('display', 'block');
+                                        } else {
+                                            $('#error-message').css('display', 'none');
+                                        }
+                                    });
+                                });
 
-                                function updateWeight4(value) {
-                                    document.getElementById('weightDisplay4').textContent =
-                                        'Bobot Jumlah Pengunjung: ' + value;
+                                function validateTotal() {
+                                    let inputs = $('.bobot-kriteria');
+                                    let total = 0;
+
+                                    inputs.each(function() {
+                                        total += parseInt($(this).val()) || 0;
+                                    });
+
+                                    if (total !== 100) {
+                                        if (total < 100) {
+                                            $('#error-message').text(
+                                                'Total bobot kriteria tidak boleh kurang dari 100.');
+                                            $('#error-message').css('display', 'block');
+                                            return false;
+                                        } else if (total > 100) {
+                                            $('#error-message').text(
+                                                'Total bobot kriteria tidak boleh lebih dari 100.');
+                                            return false;
+                                            $('#error-message').css('display', 'block');
+                                        }
+                                        // return false;
+                                    } else {
+                                        $('#error-message').css('display', 'none');
+                                        return true;
+                                    }
                                 }
                                 </script>
                                 <label class="form-check-label" for="flexRadioDefault2">
@@ -263,39 +295,24 @@ include_once './user_area/hitung.php';
                                         Tidak suka
                                     </label>
                                 </div>
-                                <hr>
-                                <i><small>Range bobot setiap Kriteria : 0 - 100</small></i>
                                 <div class="mb-3 mt-3">
-                                    <span id="weightDisplay1">Bobot <label for="bobot_kriteria" class="form-label">Biaya
-                                            Masuk</label>: 0</span>
-                                    <input type="range" min="0" oninput="updateWeight1(this.value)"
-                                        value="<?=$biaya_masuk;?>" max="100" class="form-range bobot-kriteria"
+                                    <label for="bobot_kriteria" class="form-label">Biaya Masuk</label>
+                                    <input type="number" max="100" class="form-control bobot-kriteria"
                                         name="t_bobot_kriteria[]">
                                 </div>
                                 <div class="mb-3 mt-3">
-
-                                    <span id="weightDisplay2">Bobot <label for="bobot_kriteria"
-                                            class="form-label">Fasilitas</label>: 0</span>
-                                    <input type="range" min="0" oninput="updateWeight2(this.value)" max="100"
-                                        value="<?=$fasilitas;?>" class="form-range bobot-kriteria"
+                                    <label for="bobot_kriteria" class="form-label">Fasilitas</label>
+                                    <input type="number" max="100" class="form-control bobot-kriteria"
                                         name="t_bobot_kriteria[]">
                                 </div>
                                 <div class="mb-3 mt-3">
-
-                                    <span id="weightDisplay3">Bobot <label for="bobot_kriteria" class="form-label">Jarak
-                                            dari Pusat Kota</label>: 0</span>
-                                    <input type="range" min="0" oninput="updateWeight3(this.value)" max="100"
-                                        value="<?=$jarak_kota;?>" class="form-range bobot-kriteria"
+                                    <label for="bobot_kriteria" class="form-label">Jarak dari Pusat Kota</label>
+                                    <input type="number" max="100" class="form-control bobot-kriteria"
                                         name="t_bobot_kriteria[]">
                                 </div>
                                 <div class="mb-3 mt-3">
-
-                                    <span id="weightDisplay4">Bobot <label for="bobot_kriteria"
-                                            class="form-label">Jumlah
-                                            Pengunjung</label>: 0</span>
-                                    <input type="range" min="0" oninput="updateWeight4(this.value)" max="100"
-                                        class="form-range bobot-kriteria" value="<?=$jumlah_pengunjung;?>"
-                                        name="t_bobot_kriteria[]">
+                                    <label for="bobot_kriteria" max="100" class="form-label">Jumlah Pengunjung</label>
+                                    <input type="number" class="form-control bobot-kriteria" name="t_bobot_kriteria[]">
                                 </div>
                                 <button type="submit" name="simpan" onclick="return validateTotal()"
                                     class="btn col-12 btn-outline-success">
@@ -318,38 +335,54 @@ include_once './user_area/hitung.php';
                                 <button type="button" id="btn-like-link"
                                     class="button-like-link col-lg-12 d-flex justify-content-end"><small
                                         class="">Panduan?</small></button>
+
                                 <script>
-                                function updateWeight1(value) {
-                                    document.getElementById('bobotValue1').innerText = 'Bobot Biaya Masuk: ' +
-                                        value;
+                                $(document).ready(function() {
+                                    let inputs = $('.edit-bobot-kriteria');
+                                    let sisaBobot = 0;
+
+                                    inputs.on('input', function() {
+                                        let total = 0;
+                                        inputs.each(function() {
+                                            let nilaiInput = parseInt($(this).val()) || 0;
+                                            total += nilaiInput;
+                                        });
+
+                                        sisaBobot = 100 - total;
+                                        $('#error-message').text('Sisa Bobot: ' + sisaBobot);
+                                        if (sisaBobot !== 0) {
+                                            $('#error-message').css('display', 'block');
+                                        } else {
+                                            $('#error-message').css('display', 'none');
+                                        }
+                                    });
+                                });
+
+                                function validateTotal() {
+                                    let inputs = $('.edit-bobot-kriteria');
+                                    let total = 0;
+
+                                    inputs.each(function() {
+                                        total += parseInt($(this).val()) || 0;
+                                    });
+
+                                    if (total !== 100) {
+                                        if (total < 100) {
+                                            $('#error-message').text(
+                                                'Total bobot kriteria tidak boleh kurang dari 100.');
+                                            $('#error-message').css('display', 'block');
+                                            return false;
+                                        } else if (total > 100) {
+                                            $('#error-message').text(
+                                                'Total bobot kriteria tidak boleh lebih dari 100.');
+                                            return false;
+                                            $('#error-message').css('display', 'block');
+                                        }
+                                    } else {
+                                        $('#error-message').css('display', 'none');
+                                        return true;
+                                    }
                                 }
-
-                                function updateWeight2(value) {
-                                    document.getElementById('bobotValue2').textContent = 'Bobot Fasilitas: ' + value;
-                                }
-
-                                function updateWeight3(value) {
-                                    document.getElementById('bobotValue3').textContent =
-                                        'Bobot Jarak dari Pusat Kota: ' + value;
-                                }
-
-                                function updateWeight4(value) {
-                                    document.getElementById('bobotValue4').textContent =
-                                        'Bobot Jumlah Pengunjung: ' + value;
-                                }
-
-
-                                // Inisialisasi bobot saat halaman dimuat
-                                window.onload = function() {
-                                    var initialValue1 = document.querySelector('.edit-bobot-kriteria1').value;
-                                    var initialValue2 = document.querySelector('.edit-bobot-kriteria2').value;
-                                    var initialValue3 = document.querySelector('.edit-bobot-kriteria3').value;
-                                    var initialValue4 = document.querySelector('.edit-bobot-kriteria4').value;
-                                    updateWeight1(initialValue1);
-                                    updateWeight2(initialValue2);
-                                    updateWeight3(initialValue3);
-                                    updateWeight4(initialValue4);
-                                };
                                 </script>
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     Apakah anda suka tempat yang ramai?
@@ -368,43 +401,25 @@ include_once './user_area/hitung.php';
                                         Tidak suka
                                     </label>
                                 </div>
-                                <hr>
-                                <i><small>Range bobot setiap Kriteria : 0 - 100</small></i>
                                 <div class="mb-3 mt-3">
-                                    <span id="bobotValue1">Bobot <label for="bobot_kriteria" class="form-label">Biaya
-                                            Masuk</label>: 0</span>
-
-                                    <input type="range" min="0" onload="updateWeight1(this.value)"
-                                        oninput="updateWeight1(this.value)" value="<?=$biaya_masuk;?>" max="100"
-                                        class="form-range edit-bobot-kriteria1" name="e_bobot_kriteria[]">
+                                    <label for="bobot_kriteria" class="form-label">Biaya Masuk</label>
+                                    <input type="number" max="100" class="form-control edit-bobot-kriteria"
+                                        name="e_bobot_kriteria[]" value="<?=$biaya_masuk;?>">
                                 </div>
                                 <div class="mb-3 mt-3">
-
-                                    <span id="bobotValue2">Bobot <label for="bobot_kriteria"
-                                            class="form-label">Fasilitas</label>: 0</span>
-
-                                    <input type="range" min="0" oninput="updateWeight2(this.value)" max="100"
-                                        value="<?=$fasilitas;?>" class="form-range edit-bobot-kriteria2"
-                                        name="e_bobot_kriteria[]">
+                                    <label for="bobot_kriteria" class="form-label">Fasilitas</label>
+                                    <input type="number" max="100" class="form-control edit-bobot-kriteria"
+                                        name="e_bobot_kriteria[]" value="<?=$fasilitas;?>">
                                 </div>
                                 <div class="mb-3 mt-3">
-
-                                    <span id="bobotValue3">Bobot <label for="bobot_kriteria" class="form-label">Jarak
-                                            dari Pusat Kota</label>: 0</span>
-
-                                    <input type="range" min="0" oninput="updateWeight3(this.value)" max="100"
-                                        value="<?=$jarak_kota;?>" class="form-range edit-bobot-kriteria3"
-                                        name="e_bobot_kriteria[]">
+                                    <label for="bobot_kriteria" class="form-label">Jarak dari Pusat Kota</label>
+                                    <input type="number" max="100" class="form-control edit-bobot-kriteria"
+                                        name="e_bobot_kriteria[]" value="<?=$jarak_kota;?>">
                                 </div>
                                 <div class="mb-3 mt-3">
-
-                                    <span id="bobotValue4">Bobot <label for="bobot_kriteria" class="form-label">Jumlah
-                                            Pengunjung</label>: 0</span>
-
-                                    <input type="range" min="0" oninput="updateWeight4(this.value)"
-                                        onload="updateWeight4(this.value)" max="100"
-                                        class="form-range edit-bobot-kriteria4" value="<?=$jumlah_pengunjung;?>"
-                                        name="e_bobot_kriteria[]">
+                                    <label for="bobot_kriteria" class="form-label">Jumlah Pengunjung</label>
+                                    <input type="number" max="100" class="form-control edit-bobot-kriteria"
+                                        name="e_bobot_kriteria[]" value="<?=$jumlah_pengunjung;?>">
                                 </div>
                                 <button type="submit" name="simpan" onclick="return validateTotal()"
                                     class="btn col-12 btn-outline-success">
