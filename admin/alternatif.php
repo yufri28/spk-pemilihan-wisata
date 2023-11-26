@@ -111,7 +111,7 @@ if(isset($_POST['simpan'])){
                 $teks = $fasilitas;
             }
             foreach ($dataSubFas as $key => $sub) {
-                if($sub['bobot_sub_kriteria'] == 5 && count($explod) == 5)
+                if($sub['bobot_sub_kriteria'] == 5 && count($explod) >= 5)
                 {
                     $fasId = $sub['id_sub_kriteria'];
                 }
@@ -309,7 +309,7 @@ if(isset($_POST['edit'])){
             }
           
            foreach ($dataSubFas as $key => $sub) {
-               if($sub['bobot_sub_kriteria'] == 5 && count($explod) == 5)
+               if($sub['bobot_sub_kriteria'] == 5 && count($explod) >= 5)
                {
                    $fasId = $sub['id_sub_kriteria'];
                }
