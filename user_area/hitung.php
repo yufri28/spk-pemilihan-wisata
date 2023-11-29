@@ -10,10 +10,9 @@ $bobot_c2 = $C2;
 $bobot_c3 = $C3;
 $bobot_c4 = $C4;
 
-// echo $bobot_c1.' - '.$bobot_c2.' - '.$bobot_c3.' - '.$bobot_c4;
-// echo $c1.' - '.$c2.' - '.$c3.' - '.$c4;
-// die;
 
+// echo $bobot_c1.$bobot_c2.$bobot_c3.$bobot_c4;
+// die; 
 
 $norm = $koneksi->query("SELECT 
 a.nama_alternatif, 
@@ -161,18 +160,24 @@ $V = 0;
 $kedekatan_rel = array(); 
 foreach ($norm as $key => $value) {
     foreach ($ap_am as $keys => $values) {
-
         switch ($values['nama_alternatif']) {
             case "A+":
                 $D_plus = sqrt(pow(($value['norm_C1'] - $values['norm___C1']),2)+pow(($value['norm_C2'] - $values['norm___C2']),2)+pow(($value['norm_C3'] - $values['norm___C3']),2)+pow(($value['norm_C4'] - $values['norm___C4']),2));
+                echo $D_plus;
                 break;
             case "A-":
                 $D_min = sqrt(pow(($value['norm_C1'] - $values['norm___C1']),2)+pow(($value['norm_C2'] - $values['norm___C2']),2)+pow(($value['norm_C3'] - $values['norm___C3']),2)+pow(($value['norm_C4'] - $values['norm___C4']),2));
+                echo $D_min;
                 break;
         }
     }
-    $d = $D_plus + $D_min;
+    $D_min = $D_plus + $D_min;
+
+    if($D_min == 0){
+        $D_min = $bobot_c4;
+    }
     $V = $D_min/($D_min+$D_plus);
+
     // echo $value['nama_alternatif'].' D: '.$V;
     // echo "<br>";
 

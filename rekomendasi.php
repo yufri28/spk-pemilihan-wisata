@@ -44,15 +44,13 @@ if(isset($_POST['t_bobot_kriteria'])){
     $post = true;
 }
 
-
-
 if(isset($_POST['e_bobot_kriteria'])){
     $biaya_masuk = $_POST['e_bobot_kriteria'][0];
     $fasilitas = $_POST['e_bobot_kriteria'][1];
     $jarak_kota = $_POST['e_bobot_kriteria'][2];
     $jumlah_pengunjung = $_POST['e_bobot_kriteria'][3];
     $jenis_c4 = $_POST['jenis_c4'];
-
+    
     if($jenis_c4 == 1)
     {
         $jenis_kriteria4 = "benefit";
@@ -68,7 +66,6 @@ if(isset($_POST['e_bobot_kriteria'])){
     $C4 = $jumlah_pengunjung/$totalBobot;
 
     $post = true;
-    
 }
 $dataKriteria = [
     "Biaya masuk", "Fasilitas", "Jarak dari pusat kota", "Jumlah pengunjung"
