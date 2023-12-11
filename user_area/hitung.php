@@ -163,11 +163,9 @@ foreach ($norm as $key => $value) {
         switch ($values['nama_alternatif']) {
             case "A+":
                 $D_plus = sqrt(pow(($value['norm_C1'] - $values['norm___C1']),2)+pow(($value['norm_C2'] - $values['norm___C2']),2)+pow(($value['norm_C3'] - $values['norm___C3']),2)+pow(($value['norm_C4'] - $values['norm___C4']),2));
-                echo $D_plus;
                 break;
             case "A-":
                 $D_min = sqrt(pow(($value['norm_C1'] - $values['norm___C1']),2)+pow(($value['norm_C2'] - $values['norm___C2']),2)+pow(($value['norm_C3'] - $values['norm___C3']),2)+pow(($value['norm_C4'] - $values['norm___C4']),2));
-                echo $D_min;
                 break;
         }
     }
